@@ -1,0 +1,28 @@
+K:\PRO PROYECTO 1\proyecto final\game\bin\Debug\net8.0\game.exe
+K:\PRO PROYECTO 1\proyecto final\game\bin\Debug\net8.0\game.deps.json
+K:\PRO PROYECTO 1\proyecto final\game\bin\Debug\net8.0\game.runtimeconfig.json
+K:\PRO PROYECTO 1\proyecto final\game\bin\Debug\net8.0\game.dll
+K:\PRO PROYECTO 1\proyecto final\game\bin\Debug\net8.0\game.pdb
+K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\game.GeneratedMSBuildEditorConfig.editorconfig
+K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\game.AssemblyInfoInputs.cache
+K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\game.AssemblyInfo.cs
+K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\game.csproj.CoreCompileInputs.cache
+K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\game.dll
+K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\refint\game.dll
+K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\game.pdb
+K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\game.genruntimeconfig.cache
+K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\ref\game.dll
+K:\PRO PROYECTO 1\proyecto final 3\game\bin\Debug\net8.0\game.exe
+K:\PRO PROYECTO 1\proyecto final 3\game\bin\Debug\net8.0\game.deps.json
+K:\PRO PROYECTO 1\proyecto final 3\game\bin\Debug\net8.0\game.runtimeconfig.json
+K:\PRO PROYECTO 1\proyecto final 3\game\bin\Debug\net8.0\game.dll
+K:\PRO PROYECTO 1\proyecto final 3\game\bin\Debug\net8.0\game.pdb
+K:\PRO PROYECTO 1\proyecto final 3\game\obj\Debug\net8.0\game.GeneratedMSBuildEditorConfig.editorconfig
+K:\PRO PROYECTO 1\proyecto final 3\game\obj\Debug\net8.0\game.AssemblyInfoInputs.cache
+K:\PRO PROYECTO 1\proyecto final 3\game\obj\Debug\net8.0\game.AssemblyInfo.cs
+K:\PRO PROYECTO 1\proyecto final 3\game\obj\Debug\net8.0\game.csproj.CoreCompileInputs.cache
+K:\PRO PROYECTO 1\proyecto final 3\game\obj\Debug\net8.0\game.dll
+K:\PRO PROYECTO 1\proyecto final 3\game\obj\Debug\net8.0\refint\game.dll
+K:\PRO PROYECTO 1\proyecto final 3\game\obj\Debug\net8.0\game.pdb
+K:\PRO PROYECTO 1\proyecto final 3\game\obj\Debug\net8.0\game.genruntimeconfig.cache
+K:\PRO PROYECTO 1\proyecto final 3\game\obj\Debug\net8.0\ref\game.dll
