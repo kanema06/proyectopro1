@@ -4,37 +4,7 @@ using Obstacles;
 using System.Collections;
 class Game
 {
-    public static void specialcasillas(string playername, Character player, int a, int b, string[,] laberinto, bool[,] visitado, string winner)
-    {
-        if(visitado[a, b]==false)
-        {
-            visitado[a, b]=true;
-            if(laberinto[a, b]=="M")
-            {
-                winner=playername;
-                return;
-            }
-            else if(ObstacleDictionaries.SquareEmojiMeanings.Keys.Contains(laberinto[a,b]))
-            {
-            ObstacleDictionaries.SquareEmojiMeanings[laberinto[a, b]].DisplayPlaceInfo();
-            player.Life+= ObstacleDictionaries.SquareEmojiMeanings[laberinto[a, b]].Lifealteration;
-            }
-            else 
-            {
-            Random random4 = new Random();
-            int obstaculonpc = random4.Next(1, 3);
-            ObstacleDictionaries.RoundEmojiMeanings[obstaculonpc].DisplayNPCInfo();
-            player.Life += ObstacleDictionaries.RoundEmojiMeanings[obstaculonpc].Lifealteration;
-            }
-            foreach(var dir in MazeGen.directions)
-            {
-                if(MazeGen.IsInBounds(a+dir.Item1, b+dir.Item2) && laberinto[a,b]==laberinto[a+dir.Item1, b+dir.Item2])
-                {
-                    visitado[a+dir.Item1, b+dir.Item2]=true;
-                }
-            }
-        }
-    }
+
     public static string[] caraocruz = { "cara", "cruz" };
     public static int inicio;
     public static string previousemojich1 = "⬜";
@@ -89,6 +59,7 @@ class Game
             initialcoordspl2fil = dimension - 1;
             initialcoordspl2col = dimension - 1;
             MazeGen mazeGen = new MazeGen(dimension);
+            mazeGen.Maze[dimension/2, dimension/2]="🏁";
             bool[,] MazeMask = new bool[dimension, dimension];
             mazeGen.Maze[0, 0] = player1character.Emojiof;
             mazeGen.Maze[dimension - 1, dimension - 1] = player2character.Emojiof;
@@ -153,31 +124,22 @@ Random random3 = new Random();
 int dado = random3.Next(1, 6);
 Console.WriteLine($"El dado ha caído en {dado}🎲");
 Console.ReadKey();
-
+mazeGen.DisplayMaze();
 for (int i = 0; i < dado; i++)
 {
-    Console.Clear();
-    mazeGen.DisplayMaze();
-    Console.WriteLine($"Tienes {dado - i} movimientos");
-
     var key = Console.ReadKey().Key;
 
     if (key == ConsoleKey.W && initialcoordspl1fil - 1 >= 0 && mazeGen.Maze[initialcoordspl1fil - 1, initialcoordspl1col] != "🌳")
     {
-        if(mazeGen.Maze[initialcoordspl1fil - 1, initialcoordspl1col] !="⬜")
-        {
-         specialcasillas(player1, player1character, initialcoordspl1fil-1, initialcoordspl1col, mazeGen.Maze, MazeMask, winner);
-          if(winner!="")
-          {
-            break;
-          }
-        }
         Console.Clear();
         mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = previousemojich1;
         previousemojich1 = mazeGen.Maze[initialcoordspl1fil - 1, initialcoordspl1col];
         mazeGen.Maze[initialcoordspl1fil - 1, initialcoordspl1col] = player1character.Emojiof;
         initialcoordspl1fil--;
         mazeGen.DisplayMaze();
+        Console.WriteLine($"x:{initialcoordspl1fil}, y:{initialcoordspl1col}");
+        Console.WriteLine(previousemojich1);
+
     }
     else if (key == ConsoleKey.S && initialcoordspl1fil + 1 < dimension && mazeGen.Maze[initialcoordspl1fil + 1, initialcoordspl1col] != "🌳")
     {
@@ -187,15 +149,19 @@ for (int i = 0; i < dado; i++)
         mazeGen.Maze[initialcoordspl1fil + 1, initialcoordspl1col] = player1character.Emojiof;
         initialcoordspl1fil++;
         mazeGen.DisplayMaze();
+        Console.WriteLine($"x:{initialcoordspl1fil}, y:{initialcoordspl1col}");
+        Console.WriteLine(previousemojich1);
     }
     else if (key == ConsoleKey.A && initialcoordspl1col - 1 >= 0 && mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col - 1] != "🌳")
     {
         Console.Clear();
         mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = previousemojich1;
         previousemojich1 = mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col - 1];
-        mazeGen.Maze[initialcoordspl1col - 1, initialcoordspl1col - 1] = player1character.Emojiof;
+        mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col - 1] = player1character.Emojiof;
         initialcoordspl1col--;
         mazeGen.DisplayMaze();
+        Console.WriteLine($"x:{initialcoordspl1fil}, y:{initialcoordspl1col}");
+        Console.WriteLine(previousemojich1);
     }
     else if (key == ConsoleKey.D && initialcoordspl1col + 1 < dimension && mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col + 1] != "🌳")
     {
@@ -205,6 +171,8 @@ for (int i = 0; i < dado; i++)
         mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col + 1] = player1character.Emojiof;
         initialcoordspl1col++;
         mazeGen.DisplayMaze();
+        Console.WriteLine($"x:{initialcoordspl1fil}, y:{initialcoordspl1col}");
+        Console.WriteLine(previousemojich1);
     }
     else
     {
@@ -213,6 +181,41 @@ for (int i = 0; i < dado; i++)
         Console.WriteLine("La casilla a la que desea moverse no es alcanzable, trate de nuevo");
         Console.ReadKey();
         i--;
+    }
+    if(previousemojich1!="⬜" && MazeMask[initialcoordspl1fil, initialcoordspl1col]==false)
+    {
+       MazeMask[initialcoordspl1fil, initialcoordspl1col] = true;
+                                
+                                if(previousemojich1=="🏁")
+                                {
+                                    winner=player1;
+                                    break;
+                                }
+                                  else if(previousemojich1=="🔴")
+                                {
+                                    Random random4= new Random();
+                                    int obstaculonpc= random4.Next(1,3);
+                                    ObstacleDictionaries.RoundEmojiMeanings[obstaculonpc].DisplayNPCInfo();
+                                    player2character.Life+=ObstacleDictionaries.RoundEmojiMeanings[obstaculonpc].Lifealteration;
+                                }
+                                else 
+                                {
+                                    bool visitadoadyacentes=false;
+                                    foreach(var dir in MazeGen.directions)
+                                    {
+                                        if(MazeGen.IsInBounds(initialcoordspl1fil+dir.Item1, initialcoordspl1col+dir.Item2) && MazeMask[initialcoordspl1fil+dir.Item1, initialcoordspl1col+dir.Item2]==true)
+                                        {
+                                        visitadoadyacentes=true;
+                                        MazeMask[initialcoordspl1fil, initialcoordspl1col]=true;
+                                        break;
+                                        }
+                                    }
+                                    if(!visitadoadyacentes)
+                                    {
+                                ObstacleDictionaries.SquareEmojiMeanings[previousemojich1].DisplayPlaceInfo();
+                                player1character.Life+=ObstacleDictionaries.SquareEmojiMeanings[previousemojich1].Lifealteration;
+                                    }
+                                }   
     }
 
 }
@@ -247,13 +250,11 @@ for (int i = 0; i < dado; i++)
                     {
                         Random random3 = new Random();
                         int dado = random3.Next(1, 6);
-                        Console.WriteLine($"El dado ha caído en {dado}");
+                        Console.WriteLine($"El dado ha caído en {dado}🎲");
                         Console.ReadKey();
+                        mazeGen.DisplayMaze();
                         for (int i = 0; i < dado; i++)
                         {
-                            Console.Clear();
-                            Console.WriteLine($"Tienes {dado - i} movimientos");
-                            mazeGen.DisplayMaze();
                             var key = Console.ReadKey().Key;
                             if (key == ConsoleKey.W && initialcoordspl2fil - 1 >= 0 && mazeGen.Maze[initialcoordspl2fil - 1, initialcoordspl2col] != "🌳")
                             {
@@ -317,9 +318,22 @@ for (int i = 0; i < dado; i++)
                                 }
                                 else 
                                 {
-                                ObstacleDictionaries.SquareEmojiMeanings[previousemojich1].DisplayPlaceInfo();
-                                player2character.Life+=ObstacleDictionaries.SquareEmojiMeanings[previousemojich1].Lifealteration;
-                                }
+                                    bool visitadoadyacentes=false;
+                                    foreach(var dir in MazeGen.directions)
+                                    {
+                                        if(MazeGen.IsInBounds(initialcoordspl2fil+dir.Item1, initialcoordspl2col+dir.Item2) && MazeMask[initialcoordspl2fil+dir.Item1, initialcoordspl2col+dir.Item2]==true)
+                                        {
+                                        visitadoadyacentes=true;
+                                        MazeMask[initialcoordspl2fil, initialcoordspl2col]=true;
+                                        break;
+                                        }
+                                    }
+                                    if(!visitadoadyacentes)
+                                    {
+                                ObstacleDictionaries.SquareEmojiMeanings[previousemojich2].DisplayPlaceInfo();
+                                player2character.Life+=ObstacleDictionaries.SquareEmojiMeanings[previousemojich2].Lifealteration;
+                                    }
+                            }
                             }
                         }
                     }
