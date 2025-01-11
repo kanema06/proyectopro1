@@ -5,6 +5,11 @@ using System.Collections;
 class Game
 {
 
+    #region variables y metodos
+    public static void DisplayCharacterStats(Character personaje)
+    {
+     Console.WriteLine($"vida:{personaje.Life}❤️        mana:{personaje.Mana}🪄");
+    }
     public static string[] caraocruz = { "cara", "cruz" };
     public static int inicio;
     public static string previousemojich1 = "⬜";
@@ -15,10 +20,15 @@ class Game
     public static int initialcoordspl2fil;
     public static int initialcoordspl2col;
     public static string winner="";
-
+    public static bool winnerplayer1=false;
+    public static bool winnerplayer2=false;
+    public static bool player1mov=true;
+    public static bool player2mov=true;
+   #endregion
     public static void Main(string[] args)
     {
         
+       #region texto
         ObstacleDictionaries obstacleDictionaries = new();
         Console.WriteLine("Bienvenidos al Laberinto Mágico");
         Console.WriteLine("Presione cualquier tecla para continuar (menos Esc)");
@@ -81,27 +91,55 @@ class Game
                 Console.WriteLine("La moneda ha salido cara");
                 Console.WriteLine($"{player1} empieza jugando");
                 inicio = 1;
+                Console.WriteLine($"{player1}, comienza tu turno");
             }
             else
             {
                 Console.WriteLine($"La moneda ha salido {caraocruz[seleccioncaraocruz - 1]}");
                 Console.WriteLine($"{player2} empieza jugando");
                 inicio = 2;
+                Console.WriteLine($"{player2}, comienza tu turno");
             }
+            #endregion
 
-            while (winner=="")
+            while (!winnerplayer1 || !winnerplayer2)
             {
+                #region movimiento jugador 1
                 if (inicio == 1)
                 {
-                    Console.WriteLine($"{player1}, comienza tu turno");
+                    if(player1character.Life<=0)
+                            {
+                                mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col]=previousemojich1;
+                                initialcoordspl1fil=0;
+                                initialcoordspl1col=0;
+                                player1character.ClearStats();
+                                mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col]=player1character.Emojiof;
+                                Console.Clear();
+                                Console.WriteLine("Oh no, te has quedado sin vida, vamos a regresarte al inicio, suerte!!!");
+                                inicio++;
+                            }
+                   
+                   else
+                   {
+                    Console.Clear();
+                    DisplayCharacterStats(player1character);
                     Console.WriteLine("Presiona X para tirar el dado🎲 y avanzar");
                     Console.WriteLine("Presiona Z para acceder a las habilidades especiales");
-                    
+                    Console.WriteLine("Presiona E para finalizar tu turno");
                     var opcion3 = Console.ReadKey();
+
+
+
                     if (opcion3.Key == ConsoleKey.Z)
                     {
                         Console.Clear();
-                        player1character.DisplayCharacterStats();
+                        int n=1;
+                        foreach(var poder in player1character.Poderes)
+                        {
+                           Console.WriteLine($"{n}- {poder.Nombre}");
+                           poder.DisplayPoderInfo();
+                           n++;
+                        }
                         Console.WriteLine("Seleccione el número de habilidad que desea usar:");
                         int habilidadnumber=int.Parse(Console.ReadLine());
                         if(player1character.Mana>=player1character.Poderes[habilidadnumber-1].Costomana){
@@ -112,83 +150,97 @@ class Game
                         {
                           Console.WriteLine("No tienes suficiente mana para utilizar este poder");
                         }
-                        Console.WriteLine("Presiona X para continuar a lanzar el dado🎲");
                         opcion3=Console.ReadKey();
 
                     }
 
                     if (opcion3.Key == ConsoleKey.X)
+                    if (!player1mov)
                     {
                         Console.Clear();
-Random random3 = new Random();
-int dado = random3.Next(1, 6);
-Console.WriteLine($"El dado ha caído en {dado}🎲");
-Console.ReadKey();
-mazeGen.DisplayMaze();
-for (int i = 0; i < dado; i++)
-{
-    var key = Console.ReadKey().Key;
+                        Console.WriteLine("No puedes hacer esto en este turno");
+                        Console.ReadKey();
+                    }
+                    else 
+                    {
+                    {
+                        player1mov=false;
+                        Console.Clear();
+                        Random random3 = new Random();
+                        int dado = random3.Next(1, 6);
+                        Console.WriteLine($"El dado ha caído en {dado}🎲");
+                        Console.ReadKey();
+                        mazeGen.DisplayMaze();
+                        for (int i = 0; i < dado; i++)
+                        {
+                            if(player1character.Life<=0)
+                            {
+                                mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col]=previousemojich1;
+                                initialcoordspl1fil=0;
+                                initialcoordspl1col=0;
+                                player1character.ClearStats();
+                                mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col]=player1character.Emojiof;
+                                Console.Clear();
+                                Console.WriteLine("Oh no, te has quedado sin vida, vamos a regresarte al inicio, suerte!!!");
+                                inicio++;
+                                Console.WriteLine($"{player2}, comienza tu turno");
+                                Console.ReadKey();
+                                break;
+                            }
+                          var key = Console.ReadKey().Key;
+                           if (key == ConsoleKey.W && initialcoordspl1fil - 1 >= 0 && mazeGen.Maze[initialcoordspl1fil - 1, initialcoordspl1col] != "🌳")
+                           {
+                           Console.Clear();
+                           mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = previousemojich1;
+                           previousemojich1 = mazeGen.Maze[initialcoordspl1fil - 1, initialcoordspl1col];
+                           mazeGen.Maze[initialcoordspl1fil - 1, initialcoordspl1col] = player1character.Emojiof;
+                           initialcoordspl1fil--;
+                           mazeGen.DisplayMaze();
 
-    if (key == ConsoleKey.W && initialcoordspl1fil - 1 >= 0 && mazeGen.Maze[initialcoordspl1fil - 1, initialcoordspl1col] != "🌳")
-    {
-        Console.Clear();
-        mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = previousemojich1;
-        previousemojich1 = mazeGen.Maze[initialcoordspl1fil - 1, initialcoordspl1col];
-        mazeGen.Maze[initialcoordspl1fil - 1, initialcoordspl1col] = player1character.Emojiof;
-        initialcoordspl1fil--;
-        mazeGen.DisplayMaze();
-        Console.WriteLine($"x:{initialcoordspl1fil}, y:{initialcoordspl1col}");
-        Console.WriteLine(previousemojich1);
-
-    }
-    else if (key == ConsoleKey.S && initialcoordspl1fil + 1 < dimension && mazeGen.Maze[initialcoordspl1fil + 1, initialcoordspl1col] != "🌳")
-    {
-        Console.Clear();
-        mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = previousemojich1;
-        previousemojich1 = mazeGen.Maze[initialcoordspl1fil + 1, initialcoordspl1col];
-        mazeGen.Maze[initialcoordspl1fil + 1, initialcoordspl1col] = player1character.Emojiof;
-        initialcoordspl1fil++;
-        mazeGen.DisplayMaze();
-        Console.WriteLine($"x:{initialcoordspl1fil}, y:{initialcoordspl1col}");
-        Console.WriteLine(previousemojich1);
-    }
-    else if (key == ConsoleKey.A && initialcoordspl1col - 1 >= 0 && mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col - 1] != "🌳")
-    {
-        Console.Clear();
-        mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = previousemojich1;
-        previousemojich1 = mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col - 1];
-        mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col - 1] = player1character.Emojiof;
-        initialcoordspl1col--;
-        mazeGen.DisplayMaze();
-        Console.WriteLine($"x:{initialcoordspl1fil}, y:{initialcoordspl1col}");
-        Console.WriteLine(previousemojich1);
-    }
-    else if (key == ConsoleKey.D && initialcoordspl1col + 1 < dimension && mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col + 1] != "🌳")
-    {
-        Console.Clear();
-        mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = previousemojich1;
-        previousemojich1 = mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col + 1];
-        mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col + 1] = player1character.Emojiof;
-        initialcoordspl1col++;
-        mazeGen.DisplayMaze();
-        Console.WriteLine($"x:{initialcoordspl1fil}, y:{initialcoordspl1col}");
-        Console.WriteLine(previousemojich1);
-    }
-    else
-    {
-        Console.Clear();
-        mazeGen.DisplayMaze();
-        Console.WriteLine("La casilla a la que desea moverse no es alcanzable, trate de nuevo");
-        Console.ReadKey();
-        i--;
-    }
-    if(previousemojich1!="⬜" && MazeMask[initialcoordspl1fil, initialcoordspl1col]==false)
-    {
-       MazeMask[initialcoordspl1fil, initialcoordspl1col] = true;
+                          }
+                          else if (key == ConsoleKey.S && initialcoordspl1fil + 1 < dimension && mazeGen.Maze[initialcoordspl1fil + 1, initialcoordspl1col] != "🌳")
+                          {
+                          Console.Clear();
+                         mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = previousemojich1;
+                         previousemojich1 = mazeGen.Maze[initialcoordspl1fil + 1, initialcoordspl1col];
+                         mazeGen.Maze[initialcoordspl1fil + 1, initialcoordspl1col] = player1character.Emojiof;
+                         initialcoordspl1fil++;
+                         mazeGen.DisplayMaze();
+                         }
+                         else if (key == ConsoleKey.A && initialcoordspl1col - 1 >= 0 && mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col - 1] != "🌳")
+                         {
+                         Console.Clear();
+                         mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = previousemojich1;
+                         previousemojich1 = mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col - 1];
+                         mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col - 1] = player1character.Emojiof;
+                         initialcoordspl1col--;
+                         mazeGen.DisplayMaze();
+                         }
+                         else if (key == ConsoleKey.D && initialcoordspl1col + 1 < dimension && mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col + 1] != "🌳")
+                         {
+                         Console.Clear();
+                         mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = previousemojich1;
+                         previousemojich1 = mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col + 1];
+                         mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col + 1] = player1character.Emojiof;
+                         initialcoordspl1col++;
+                         mazeGen.DisplayMaze();
+                         }
+                         else
+                         {
+                         Console.Clear();
+                         mazeGen.DisplayMaze();
+                         Console.WriteLine("La casilla a la que desea moverse no es alcanzable, trate de nuevo");
+                         Console.ReadKey();
+                         i--;
+                         }
+                         if(previousemojich1!="⬜" && MazeMask[initialcoordspl1fil, initialcoordspl1col]==false)
+                         {
+                         MazeMask[initialcoordspl1fil, initialcoordspl1col] = true;
                                 
-                                if(previousemojich1=="🏁")
+                             if(previousemojich1=="🏁")
                                 {
                                     winner=player1;
+                                    winnerplayer1=true;
                                     break;
                                 }
                                   else if(previousemojich1=="🔴")
@@ -216,33 +268,34 @@ for (int i = 0; i < dado; i++)
                                 player1character.Life+=ObstacleDictionaries.SquareEmojiMeanings[previousemojich1].Lifealteration;
                                     }
                                 }   
-    }
+                            }
 
-}
-
+                         }
+                         opcion3=Console.ReadKey();
                     }
-
-                    Console.WriteLine("Presione E para terminar su turno");
-                    var key2 = Console.ReadKey();
-                    while(key2.Key != ConsoleKey.E)
-                    {
-                    Console.WriteLine("no puedes hacer mas nada en este turno, presiona E");
-                    key2 = Console.ReadKey();
                     }
-                    Console.Clear();
+                    if(opcion3.Key==ConsoleKey.E){
                     inicio++;
-                
+                    Console.Clear();
+                    Console.WriteLine($"{player2}, comienza tu turno");
+                    Console.ReadKey();
+                    }
+                    
                 }
-
+                }
+                #endregion
+               
+               
+            #region movimiento jugador 2
                 if (inicio == 2)
                 {
-                    Console.WriteLine($"{player2} comienza tu turno");
+                    player1mov=true;
                     Console.WriteLine("Presiona X para tirar el dado y avanzar");
                     Console.WriteLine("Presiona Z para acceder a las habilidades especiales");
                      var opcion3 = Console.ReadKey();
                     if (opcion3.Key == ConsoleKey.Z)
                     {
-                        player2character.DisplayCharacterStats();
+                        
                         Console.WriteLine("Seleccione el número de habilidad que desea usar:");
                     }
 
@@ -306,6 +359,7 @@ for (int i = 0; i < dado; i++)
                                 
                                 if(previousemojich2=="🏁")
                                 {
+                                    winnerplayer2=true;
                                     winner=player2;
                                     break;
                                 }
@@ -348,11 +402,12 @@ for (int i = 0; i < dado; i++)
                     inicio--;
                 }
             }
+            #endregion
             Console.WriteLine($"¡Felicidades, {winner}! Has ganado la partida.");
         }
         else
         {
-            Console.WriteLine("Gracias por jugar. ¡Hasta la próxima!");
+            Console.WriteLine("¡Hasta la próxima!");
         }
     }
 }

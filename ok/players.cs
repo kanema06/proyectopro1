@@ -73,15 +73,12 @@ namespace Personajes
             Life = life;
             Poderes = poderes;
         }
-        public void DisplayCharacterStats(){
-            Console.WriteLine($"{Life}❤️");
-            int n=1;
-            foreach (var poder in Poderes)
-            {
-                Console.WriteLine($"{n}- {poder.Nombre}");
-                poder.DisplayPoderInfo();
-                n++;
-            }
+        
+        public void ClearStats()
+        {
+            Mana=5;
+            Life=5;
+            
         }
         public void DisplayCharacterInfo()
         {
