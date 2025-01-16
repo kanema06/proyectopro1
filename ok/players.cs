@@ -6,34 +6,72 @@ namespace Personajes
     public static class PersonajesData
     {
         public static List<(int, Character)> personajes;
+        
+        public static Random random=new();
+
+
 
         static PersonajesData()
         {
+           Poder genericpower1= new Poder("Leche Mu-Mu", 8, 1, 0, 3, "Puede curar 1❤️");
+           Poder genericpower2= new Poder("trampa magica", 9, 0, -1, 2, "Le provoca un daño de 1❤️ a su oponente si pasa por la trampa");
+           Poder genericpower3= new Poder("polvo de hadas", 10, -1, 0, -3, "A cambio de un 1❤️ recupera 3 de mana🪄");
             List<Poder> podereshumano = new List<Poder>
             {
-                new Poder("sanacion por turno", 1, 0, 1, "Puede decidir perder el turno para acampara, sanando 1❤️. No puede usarse dos turnos seguidos")
+                new Poder("intercambio",1, -2, -1, 1, "Puede quitarse 2❤️ para hacerle a su enemigo un daño de 1❤️"),
+
+                genericpower1,
+                genericpower2,
+                genericpower3
+
             };
             List<Poder> poderesdragon = new List<Poder>
             {
-                new Poder("armadura", 2, 0, 3, "armadura de 2❤️, solo puedo usarlo una vez en el juego")
+                new Poder("escamas de dragon",2, 2, 0, 5, "Gracias a su fuerte armadura de escamas los ataques le infligen 1❤️ menos"),
+                genericpower1,
+                genericpower2,
+                genericpower3
             };
             List<Poder> poderesunicornio = new List<Poder>
             {
-                new Poder("super sanacion", 2, 0, 2, "puede sanar el doble de corazones")
+                new Poder("super curacion",3, 2, 0, 5, "Puede sanar 3❤️"),
+                genericpower1,
+                genericpower2,
+                genericpower3
             };
-            List<Poder> poderesdemonio = new List<Poder>();
+            List<Poder> poderesdemonio = new List<Poder>
+            {
+                new Poder("daño con azar", 7, 0, -random.Next(1, 4), 3, "Puede hacer un daño desde 1❤️ hasta 3❤️ al enemigo, no se puede elegir el daño, es al azar"),
+                genericpower1,
+                genericpower2,
+                genericpower3
+            };
             List<Poder> poderesangel = new List<Poder>
             {
-                new Poder("muerte con azar", 0, 0, 2, "al morir lanza un dado de 3 resultados")
+                new Poder("suerte de morir",4, 0, -4, 2, "si mueres tu oponente pierde 3❤️"),
+                genericpower1,
+                genericpower2,
+                genericpower3
+
             };
             List<Poder> poderesvampiro = new List<Poder>
             {
-                new Poder("absorcion", 1, -1, 2, "cuando se encuentra en la misma fila o columna qu2 otro jugadr le puede absorber 1❤️")
+                new Poder("alimentacion",5, 1, -1, 3, "le puedes absorber 2❤️ a tu oponente"),
+                genericpower1,
+                genericpower2,
+                genericpower3
             };
             List<Poder> poderessirena = new List<Poder>
             {
-                new Poder("aturdimiento", 0, 0, 2, "al caer en linea con otro jugador lo aturde por un turno")
+                new Poder("aturdimiento",6, 0, 0, 4, "con su voz puede aturdir a su oponente por un turno"),
+                genericpower1,
+                genericpower2,
+                genericpower3
             };
+           
+
+
+
 
             personajes = new List<(int, Character)>();
             
@@ -73,7 +111,50 @@ namespace Personajes
             Life = life;
             Poderes = poderes;
         }
-        
+       /* public void playermovement(int dimension, int x, int y, Character personajeamover, string[,] milaberinto, ConsoleKey destino)
+        {
+         if(destino==ConsoleKey.W && puedemoversea(dimension, milaberinto, x, y, destino))
+            {
+            string previoousemoji;
+            if(milaberinto[x-1, y]!=personajeamover.Emojiof)previoousemoji = milaberinto[x-1, y];
+
+            milaberinto[x-1, y]=personajeamover.Emojiof;
+
+            }
+            else if(destino==ConsoleKey.S && x+1<dimension && milaberinto[x+1, y]!="🌳")
+            {
+                return true;
+            }
+            else if(destino==ConsoleKey.A && y-1>=0 && milaberinto[x, y-1]!="🌳")
+            {
+                return true;
+            }
+            else if(destino==ConsoleKey.D && y+1<dimension && milaberinto[x, y+1]!="🌳")
+            {
+                return true;
+            }
+        }
+        public bool puedemoversea(int dimension, string[,] milaberinto, int x, int y, ConsoleKey destino)
+        {
+            if(destino==ConsoleKey.W && x-1>=0 && milaberinto[x-1, y]!="🌳")
+            {
+            return true;
+            }
+            else if(destino==ConsoleKey.S && x+1<dimension && milaberinto[x+1, y]!="🌳")
+            {
+                return true;
+            }
+            else if(destino==ConsoleKey.A && y-1>=0 && milaberinto[x, y-1]!="🌳")
+            {
+                return true;
+            }
+            else if(destino==ConsoleKey.D && y+1<dimension && milaberinto[x, y+1]!="🌳")
+            {
+                return true;
+            }
+            return false;
+        }*/
+       
         public void ClearStats()
         {
             Mana=5;
@@ -91,27 +172,23 @@ namespace Personajes
         }
     }
 
-    public class Poder
+    public class Poder(string nombre, int poderid, int selflifeAlteration, int othersLifeALteration, int costomana, string description)
     {
-        public string Nombre { get; set; }
-        public int Costomana {get; set;}
-        public int SelfLifeAlteration { get; set; }
-        public int OthersLifeALteration {get; set;}
+        public string Nombre { get; set; } = nombre;
+        public int PoderID { get; set; } = poderid;
 
-        public string Description { get; set; }
+        public int Costomana { get; set; } = costomana;
+        public int SelfLifeAlteration { get; set; } = selflifeAlteration;
+        public int OthersLifeALteration { get; set; } = othersLifeALteration;
 
-        public Poder(string nombre, int selflifeAlteration, int othersLifeALteration, int costomana, string description)
-        {
-            Nombre = nombre;
-            SelfLifeAlteration = selflifeAlteration;
-            OthersLifeALteration=othersLifeALteration;
-            Costomana=costomana;
-            Description = description;
-        }
-
+        public string Description { get; set; } = description;
+        public static bool escamasdedragon;
+        public static bool angelmuerte;
         public void DisplayPoderInfo()
         {
+            Console.WriteLine($"Costo de mana:{Costomana}");
             Console.WriteLine(Description);
         }
+         
     }
 }

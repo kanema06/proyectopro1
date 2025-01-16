@@ -132,7 +132,7 @@ namespace Obstacles
                 { "⛪", new Obstacle("un santuario", 2, "es un buen momento para un poco de relajacion espiritual, no sientes la vida volver a ti...?") },
                 { "🌼", new Obstacle("una pradera", 1, "las praderas son un buen lugar para descansar y recuperar un poco de vida") },
                 { "🟦", new Obstacle("un lago", -3, "los lagos pueden ser una vista muy bonita, pero quizas no sea tan buena idea pasar por ahi...")},
-                { "🪦 ", new Obstacle("un cementerio", -1, "los cementerios son lugares verdaderamente aterradores... alguien mas vio eso moverse?💀")}
+                { "🧟", new Obstacle("un cementerio", -1, "los cementerios son lugares verdaderamente aterradores... alguien mas vio eso moverse?💀")}
             };
         }
     }
