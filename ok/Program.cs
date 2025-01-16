@@ -12,6 +12,7 @@ class Game
     }
      public static void UsePoder(int numhab, Character pers1,  Character pers2, bool mov, string[,] milaberinto, int dimension, int x, int y,string previoousemoji1, string previoousemoji2, int x2, int y2, string namepers1, string namepers2)
         {
+            int angeldamage=0;
             Console.WriteLine($"Acabas de usar {pers1.Poderes[numhab-1].Nombre}");
             pers1.Poderes[numhab-1].DisplayPoderInfo();
             if (pers1.Poderes[numhab-1].PoderID==1 ||  pers1.Poderes[numhab-1].PoderID==5 ||  pers1.Poderes[numhab-1].PoderID==7 ||  pers1.Poderes[numhab-1].PoderID==8 ||  pers1.Poderes[numhab-1].PoderID==10)
@@ -31,7 +32,7 @@ class Game
                 mov=true;
                 if(Poder.angelmuerte==true && pers2.Emojiof=="😇")
                         {
-                            pers1.Life-=3;
+                            pers1.Life-=4;
                             Console.WriteLine("Con tu muerte se ha activado la habilidad especial ''suerte de morir''");
                             Console.WriteLine("Tu oponente pierde 3❤️");
                             Console.ReadKey();
@@ -49,7 +50,7 @@ class Game
                 mov=true;
                 if(Poder.angelmuerte==true && pers1.Emojiof=="😇")
                         {
-                            pers2.Life-=3;
+                            pers2.Life-=angeldamage;
                             Console.WriteLine("Con tu muerte se ha activado la habilidad especial ''suerte de morir''");
                             Console.WriteLine("Tu oponente pierde 3❤️");
                             Console.ReadKey();
@@ -63,7 +64,9 @@ class Game
             }
             else if(pers1.Poderes[numhab-1].PoderID==4)
             {
+                angeldamage=pers1.Poderes[numhab-1].OthersLifeALteration;
                 Poder.angelmuerte=true;
+                pers1.Mana-=pers1.Poderes[numhab-1].Costomana;
             }
             else if(pers1.Poderes[numhab-1].PoderID==6)
             {
