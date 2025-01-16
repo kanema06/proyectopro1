@@ -14,8 +14,8 @@ namespace Personajes
         static PersonajesData()
         {
            Poder genericpower1= new Poder("Leche Mu-Mu", 8, 1, 0, 3, "Puede curar 1❤️");
-           Poder genericpower2= new Poder("trampa magica", 9, 0, -1, 2, "Le provoca un daño de 1❤️ a su oponente si pasa por la trampa");
-           Poder genericpower3= new Poder("polvo de hadas", 10, -1, 0, -3, "A cambio de un 1❤️ recupera 3 de mana🪄");
+           Poder genericpower2= new Poder("trampa magica", 9, 0, -5, 2, "Le provoca un daño de 1❤️ a su oponente si pasa por la trampa");
+           Poder genericpower3= new Poder("polvo de hadas", 10, -3, 0, -3, "A cambio de un 1❤️ recupera 3 de mana🪄");
             List<Poder> podereshumano = new List<Poder>
             {
                 new Poder("intercambio",1, -2, -1, 1, "Puede quitarse 2❤️ para hacerle a su enemigo un daño de 1❤️"),
@@ -41,7 +41,7 @@ namespace Personajes
             };
             List<Poder> poderesdemonio = new List<Poder>
             {
-                new Poder("daño con azar", 7, 0, -random.Next(1, 4), 3, "Puede hacer un daño desde 1❤️ hasta 3❤️ al enemigo, no se puede elegir el daño, es al azar"),
+                new Poder("daño con azar", 7, 0, -random.Next(0, 4), 5, "Puede hacer un daño desde 1❤️ hasta 3❤️ al enemigo, no se puede elegir el daño, es al azar"),
                 genericpower1,
                 genericpower2,
                 genericpower3
@@ -56,7 +56,7 @@ namespace Personajes
             };
             List<Poder> poderesvampiro = new List<Poder>
             {
-                new Poder("alimentacion",5, 1, -1, 3, "le puedes absorber 2❤️ a tu oponente"),
+                new Poder("alimentacion",5, 1, -1, 5, "le puedes absorber 2❤️ a tu oponente"),
                 genericpower1,
                 genericpower2,
                 genericpower3
@@ -75,13 +75,13 @@ namespace Personajes
 
             personajes = new List<(int, Character)>();
             
-                personajes.Add((1, new Character("humano", "🧍",5, 5, podereshumano)));
-                personajes.Add((2, new Character("dragon","🐉",5, 5, poderesdragon)));
-                personajes.Add((3, new Character("unicornio","🦄",5, 5, poderesunicornio)));
-                personajes.Add((4, new Character("demonio","😈",5, 5, poderesdemonio)));
-                personajes.Add((5, new Character("angel","😇",5, 5, poderesangel)));
-                personajes.Add((6, new Character("vampiro","🧛",5, 5, poderesvampiro)));
-                personajes.Add((7, new Character("sirena","🧜",5, 5, poderessirena)));
+                personajes.Add((1, new Character("humano",(0,0), "🧍",5, 5, podereshumano)));
+                personajes.Add((2, new Character("dragon",(0,0),"🐉",5, 5, poderesdragon)));
+                personajes.Add((3, new Character("unicornio",(0,0),"🦄",5, 5, poderesunicornio)));
+                personajes.Add((4, new Character("demonio",(0,0),"😈",5, 5, poderesdemonio)));
+                personajes.Add((5, new Character("angel",(0,0),"😇",5, 5, poderesangel)));
+                personajes.Add((6, new Character("vampiro",(0,0),"🧛",5, 5, poderesvampiro)));
+                personajes.Add((7, new Character("sirena",(0,0),"🧜",5, 5, poderessirena)));
         }
 
         public static void ReadPersonajes()
@@ -97,16 +97,18 @@ namespace Personajes
     public class Character
     {
         public string Name { get; set; }
+        public (int,int) Start{get; set;}
         public string Emojiof {get; set;}
         public int Mana {get; set;}
 
         public int Life { get; set; }
         public List<Poder> Poderes { get; set; }
 
-        public Character(string name,string emojiof, int mana, int life, List<Poder> poderes)
+        public Character(string name,(int,int)start,string emojiof, int mana, int life, List<Poder> poderes)
         {
             Emojiof= emojiof;
             Name = name;
+            Start=start;
             Mana=mana;
             Life = life;
             Poderes = poderes;
