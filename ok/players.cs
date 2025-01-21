@@ -186,6 +186,7 @@ namespace Personajes
         public string Description { get; set; } = description;
         public static bool escamasdedragon;
         public static bool angelmuerte;
+        public static bool sirenacanto;
         public void DisplayPoderInfo()
         {
             Console.WriteLine($"Costo de mana:{Costomana}");

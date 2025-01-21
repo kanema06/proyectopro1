@@ -12,6 +12,7 @@ class Game
     }
      public static void UsePoder(int numhab, Character pers1,  Character pers2, bool mov, string[,] milaberinto, int dimension, int x, int y,string previoousemoji1, string previoousemoji2, int x2, int y2, string namepers1, string namepers2)
         {
+            pers1.Mana-=pers1.Poderes[numhab-1].Costomana;
             int angeldamage=0;
             Console.WriteLine($"Acabas de usar {pers1.Poderes[numhab-1].Nombre}");
             pers1.Poderes[numhab-1].DisplayPoderInfo();
@@ -19,7 +20,6 @@ class Game
             {
              pers1.Life+=pers1.Poderes[numhab-1].SelfLifeAlteration;
              pers2.Life+=pers1.Poderes[numhab-1].OthersLifeALteration;
-             pers1.Mana-=pers1.Poderes[numhab-1].Costomana;
              if(pers2.Life<=0)
              {
                 milaberinto[x2,y2] = previoousemoji2;
@@ -64,13 +64,12 @@ class Game
             }
             else if(pers1.Poderes[numhab-1].PoderID==4)
             {
-                angeldamage=pers1.Poderes[numhab-1].OthersLifeALteration;
                 Poder.angelmuerte=true;
-                pers1.Mana-=pers1.Poderes[numhab-1].Costomana;
+              
             }
             else if(pers1.Poderes[numhab-1].PoderID==6)
             {
-               mov=false;
+               Poder.sirenacanto=true;
             }
             else if(pers1.Poderes[numhab-1].PoderID==9)
             {
@@ -180,23 +179,29 @@ class Game
                 if (inicio == 1)
                 {
                     if (player1character.Life <= 0)
-                    {
-                        mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = previousemojich1;
-                        initialcoordspl1fil = 0;
-                        initialcoordspl1col = 0;
-                        player1character.ClearStats();
-                        mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = player1character.Emojiof;
-                        Console.Clear();
-                        Console.WriteLine("Oh no, te has quedado sin vida, vamos a regresarte al inicio, suerte!!!");
-                        inicio++;
-                        if(Poder.angelmuerte==true && player1character.Emojiof=="😇")
-                         {
-                           player2character.Life-=3;
-                           Console.WriteLine("Con tu muerte se ha activado la habilidad especial ''suerte de morir''");
-                           Console.WriteLine("Tu oponente pierde 3❤️");
-                           Console.ReadKey();
-                         }
-                    }
+                                        {
+                                            mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = previousemojich1;
+                                            previousemojich1="⬜";
+                                            initialcoordspl1fil = 0;
+                                            initialcoordspl1col = 0;
+                                            player1character.ClearStats();
+                                            mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = player1character.Emojiof;
+                                            Console.Clear();
+                                            Console.WriteLine("Oh no, te has quedado sin vida, vamos a regresarte al inicio, suerte!!!");
+                                            Console.ReadKey();
+                                            Console.Clear();
+                                            inicio++;
+                                            Console.WriteLine($"{player2}, comienza tu turno");
+                                            Console.ReadKey();
+                                            if(Poder.angelmuerte==true && player1character.Emojiof=="😇")
+                                                 {
+                                                   player2character.Life-=3;
+                                                   Console.WriteLine("Con tu muerte se ha activado la habilidad especial ''suerte de morir''");
+                                                   Console.WriteLine("Tu oponente pierde 3❤️");
+                                                   Console.ReadKey();
+                                                 }
+                                            break;
+                                        }
 
                     else
                     {
@@ -237,6 +242,12 @@ class Game
                         }
 
                         if (opcion3.Key == ConsoleKey.X)
+                            if (Poder.sirenacanto==true && player2character.Name=="sirena")
+                            {
+                                player1mov=false;
+                                Poder.sirenacanto=false;
+                                Console.WriteLine("Oh no, tu rival te distrajo con su voz y no te puedes mover durante este turno...");
+                            }
                             if (!player1mov)
                             {
                                 Console.Clear();
@@ -258,12 +269,15 @@ class Game
                                         if (player1character.Life <= 0)
                                         {
                                             mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = previousemojich1;
+                                            previousemojich1="⬜";
                                             initialcoordspl1fil = 0;
                                             initialcoordspl1col = 0;
                                             player1character.ClearStats();
                                             mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = player1character.Emojiof;
                                             Console.Clear();
                                             Console.WriteLine("Oh no, te has quedado sin vida, vamos a regresarte al inicio, suerte!!!");
+                                            Console.ReadKey();
+                                            Console.Clear();
                                             inicio++;
                                             Console.WriteLine($"{player2}, comienza tu turno");
                                             Console.ReadKey();
@@ -361,7 +375,6 @@ class Game
                                                     player1character.Life += ObstacleDictionaries.SquareEmojiMeanings[previousemojich1].Lifealteration;
                                                 }
                                             }
-                                            Console.ReadKey();
                                         }
 
                                     }
@@ -385,25 +398,29 @@ class Game
                 #region movimiento jugador 2
                 if (inicio == 2)
                 {
-                    if (player2character.Life <= 0)
-                    {
-                        mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col] = previousemojich2;
-                        initialcoordspl2fil = dimension-1;
-                        initialcoordspl2col = dimension-1;
-                        player2character.ClearStats();
-                        mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col] = player2character.Emojiof;
-                        Console.Clear();
-                        Console.WriteLine("Oh no, te has quedado sin vida, vamos a regresarte al inicio, suerte!!!");
-                        inicio--;
-                        if(Poder.angelmuerte==true && player2character.Emojiof=="😇")
-                        {
-                            player1character.Life-=3;
-                            Console.WriteLine("Con tu muerte se ha activado la habilidad especial ''suerte de morir''");
-                            Console.WriteLine("Tu oponente pierde 3❤️");
-                            Console.ReadKey();
-                        }
-                    }
-
+                   if (player2character.Life <= 0)
+                                        {
+                                            mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col] = previousemojich2;
+                                            previousemojich2="⬜";
+                                            initialcoordspl2fil = dimension-1;
+                                            initialcoordspl2col = dimension-1;
+                                            player2character.ClearStats();
+                                            mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col] = player2character.Emojiof;
+                                            Console.Clear();
+                                            Console.WriteLine("Oh no, te has quedado sin vida, vamos a regresarte al inicio, suerte!!!");
+                                            inicio--;
+                                            Console.ReadKey();
+                                            Console.WriteLine($"{player1}, comienza tu turno");
+                                            Console.ReadKey();
+                                            if(Poder.angelmuerte==true && player2character.Emojiof=="😇")
+                                            {
+                                            player1character.Life-=3;
+                                             Console.WriteLine("Con tu muerte se ha activado la habilidad especial ''suerte de morir''");
+                                             Console.WriteLine("Tu oponente pierde 3❤️");
+                                             Console.ReadKey();
+                                             }
+                                            break;
+                                        }
                     else
                     {
                         player1mov=true;
@@ -431,7 +448,7 @@ class Game
                             int habilidadnumber = int.Parse(Console.ReadLine());
                             if (player2character.Mana - player2character.Poderes[habilidadnumber - 1].Costomana>=0)
                             {
-                                player2character.Mana -= player2character.Poderes[habilidadnumber - 1].Costomana;
+                                
                                 UsePoder(habilidadnumber, player2character, player1character, player1mov, mazeGen.Maze, dimension, initialcoordspl2fil, initialcoordspl2col,previousemojich2, previousemojich1, initialcoordspl1fil, initialcoordspl1col, player2, player1);
                             }
                             else
@@ -464,13 +481,15 @@ class Game
                                         if (player2character.Life <= 0)
                                         {
                                             mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col] = previousemojich2;
-                                            initialcoordspl1fil = dimension-1;
-                                            initialcoordspl1col = dimension-1;
+                                            previousemojich2="⬜";
+                                            initialcoordspl2fil = dimension-1;
+                                            initialcoordspl2col = dimension-1;
                                             player2character.ClearStats();
                                             mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col] = player2character.Emojiof;
                                             Console.Clear();
                                             Console.WriteLine("Oh no, te has quedado sin vida, vamos a regresarte al inicio, suerte!!!");
-                                            inicio++;
+                                            inicio--;
+                                            Console.ReadKey();
                                             Console.WriteLine($"{player1}, comienza tu turno");
                                             Console.ReadKey();
                                             if(Poder.angelmuerte==true && player2character.Emojiof=="😇")
@@ -567,7 +586,6 @@ class Game
                                                     player2character.Life += ObstacleDictionaries.SquareEmojiMeanings[previousemojich2].Lifealteration;
                                                 }
                                             }
-                                            Console.ReadKey();
                                         }
 
                                     }
