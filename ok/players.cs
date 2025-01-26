@@ -14,11 +14,11 @@ namespace Personajes
         static PersonajesData()
         {
            Poder genericpower1= new Poder("Leche Mu-Mu", 8, 1, 0, 3, "Puede curar 1❤️");
-           Poder genericpower2= new Poder("trampa magica", 9, 0, -5, 2, "Le provoca un daño de 1❤️ a su oponente si pasa por la trampa");
-           Poder genericpower3= new Poder("polvo de hadas", 10, -3, 0, -3, "A cambio de un 1❤️ recupera 3 de mana🪄");
+           Poder genericpower2= new Poder("trampa magica", 9, 0, -5, 3, "Le provoca un daño de 5❤️ a su oponente si pasa por la trampa");
+           Poder genericpower3= new Poder("polvo de hadas", 10, -3, 0, -3, "A cambio de un 3❤️ recupera 3 de mana🪄");
             List<Poder> podereshumano = new List<Poder>
             {
-                new Poder("intercambio",1, -2, -1, 1, "Puede quitarse 2❤️ para hacerle a su enemigo un daño de 1❤️"),
+                new Poder("intercambio",1, -1, -2, 3, "Puede quitarse 1❤️ para hacerle a su enemigo un daño de 2❤️"),
 
                 genericpower1,
                 genericpower2,
@@ -27,7 +27,7 @@ namespace Personajes
             };
             List<Poder> poderesdragon = new List<Poder>
             {
-                new Poder("escamas de dragon",2, 2, 0, 5, "Gracias a su fuerte armadura de escamas los ataques le infligen 1❤️ menos"),
+                new Poder("escamas de dragon",2, 2, 0, 5, "Gracias a su fuerte armadura de escamas los ataques de sus enemigos le infligen la mitad del daño❤️"),
                 genericpower1,
                 genericpower2,
                 genericpower3
@@ -41,14 +41,14 @@ namespace Personajes
             };
             List<Poder> poderesdemonio = new List<Poder>
             {
-                new Poder("daño con azar", 7, 0, -random.Next(0, 4), 5, "Puede hacer un daño desde 1❤️ hasta 3❤️ al enemigo, no se puede elegir el daño, es al azar"),
+                new Poder("daño con azar", 7, 0, -random.Next(0, 4), 5, "Puede hacer un daño desde 0❤️ hasta 3❤️ al enemigo, no se puede elegir el daño, es al azar"),
                 genericpower1,
                 genericpower2,
                 genericpower3
             };
             List<Poder> poderesangel = new List<Poder>
             {
-                new Poder("suerte de morir",4, 0, -4, 2, "si mueres tu oponente pierde 3❤️"),
+                new Poder("suerte de morir",4, 0, -4, 2, "si mueres tu oponente pierde 4❤️"),
                 genericpower1,
                 genericpower2,
                 genericpower3
@@ -56,7 +56,7 @@ namespace Personajes
             };
             List<Poder> poderesvampiro = new List<Poder>
             {
-                new Poder("alimentacion",5, 1, -1, 5, "le puedes absorber 2❤️ a tu oponente"),
+                new Poder("alimentacion",5, 1, -1, 5, "le puedes absorber 1❤️ a tu oponente"),
                 genericpower1,
                 genericpower2,
                 genericpower3

@@ -18,8 +18,15 @@ class Game
             pers1.Poderes[numhab-1].DisplayPoderInfo();
             if (pers1.Poderes[numhab-1].PoderID==1 ||  pers1.Poderes[numhab-1].PoderID==5 ||  pers1.Poderes[numhab-1].PoderID==7 ||  pers1.Poderes[numhab-1].PoderID==8 ||  pers1.Poderes[numhab-1].PoderID==10)
             {
+            if (Poder.escamasdedragon==true && pers2.Name=="dragon")
+            {
+                pers2.Life+=(pers1.Poderes[numhab-1].OthersLifeALteration/2);
+            }
+             else
+             {
+                pers2.Life+=pers1.Poderes[numhab-1].OthersLifeALteration;
+             }
              pers1.Life+=pers1.Poderes[numhab-1].SelfLifeAlteration;
-             pers2.Life+=pers1.Poderes[numhab-1].OthersLifeALteration;
              if(pers2.Life<=0)
              {
                 milaberinto[x2,y2] = previoousemoji2;
@@ -101,25 +108,30 @@ class Game
         ObstacleDictionaries obstacleDictionaries = new();
         
         Console.WriteLine("Bienvenidos al Laberinto Mágico");
-        Console.WriteLine("Presione cualquier tecla para continuar (menos Esc)");
+        Console.WriteLine("Presione cualquier tecla para continuar");
         Console.ReadKey();
+        Console.Clear();
         Console.WriteLine("¿Desean jugar?");
-        Console.WriteLine("1. Sí");
-        Console.WriteLine("2. No");
+        Console.WriteLine("1. Sí             2. No");
         string? stringopcion=Console.ReadLine();
         int? opcion = int.Parse(stringopcion);
+        Console.Clear();
         if (opcion == 1)
         {
             Console.WriteLine("El laberinto mágico es un juego diseñado para dos personas. Por ahora, díganme sus nombres...");
             Console.WriteLine("Jugador 1, introduzca su nombre:");
             string? player1 = Console.ReadLine();
+            Console.Clear();
             Console.WriteLine("Jugador 2, introduzca su nombre:");
             string? player2 = Console.ReadLine();
+            Console.Clear();
             Console.WriteLine($"Bienvenidos a la aventura, {player1} y {player2}");
+            Console.WriteLine("Presione cualquier tecla para continuar");
+            Console.ReadKey();
+            Console.Clear();
             Console.WriteLine("El objetivo del juego es llegar hasta la meta antes que su oponente. Por supuesto, encontrarán varios obstáculos en su aventura.");
             Console.WriteLine("Para jugar, pueden escoger entre varios personajes... ¿Quisieran ver la información de los personajes?");
-            Console.WriteLine("1. Sí");
-            Console.WriteLine("2. No");
+            Console.WriteLine("1. Sí             2. No");
             int opcion2 = int.Parse(Console.ReadLine());
             if (opcion2 == 1)
             {
@@ -205,6 +217,16 @@ class Game
 
                     else
                     {
+                    if (Poder.sirenacanto &&  player2character.Name=="sirena"){
+                        player2mov=true;
+                        Poder.sirenacanto=false;
+                        Console.WriteLine("Oh no, tu oponente se ha saltado tu turno, luego nos vemos!!!");
+                        Console.WriteLine("Presiona cualquier tecla para continuar....");
+                        Console.ReadKey();
+                        inicio++;
+                    }
+                    else
+                    {
                         player2mov=true;
                         Console.Clear();
                         Console.WriteLine($"Turno de {player1}.");
@@ -242,12 +264,6 @@ class Game
                         }
 
                         if (opcion3.Key == ConsoleKey.X)
-                            if (Poder.sirenacanto==true && player2character.Name=="sirena")
-                            {
-                                player1mov=false;
-                                Poder.sirenacanto=false;
-                                Console.WriteLine("Oh no, tu rival te distrajo con su voz y no te puedes mover durante este turno...");
-                            }
                             if (!player1mov)
                             {
                                 Console.Clear();
@@ -391,6 +407,7 @@ class Game
                         }
 
                     }
+                    }
                 }
                 #endregion
 
@@ -423,6 +440,16 @@ class Game
                                         }
                     else
                     {
+                        if (Poder.sirenacanto &&  player1character.Name=="sirena"){
+                        player1mov=true;
+                        Poder.sirenacanto=false;
+                        Console.WriteLine("Oh no, tu oponente se ha saltado tu turno, luego nos vemos!!!");
+                        Console.WriteLine("Presiona cualquier tecla para continuar....");
+                        Console.ReadKey();
+                        inicio--;
+                    }
+                        else
+                        {
                         player1mov=true;
                         Console.Clear();
                         Console.WriteLine($"Turno de {player2}.");
@@ -601,6 +628,7 @@ class Game
                             Console.ReadKey();
                         }
 
+                    }
                     }
                 }
             }
