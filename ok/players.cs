@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Personajes
 {
@@ -8,14 +9,15 @@ namespace Personajes
         public static List<(int, Character)> personajes;
         
         public static Random random=new();
+         public static Poder genericpower1= new Poder("Leche Mu-Mu", 8, 1, 0, 3, "Puede curar 1❤️");
+         public static Poder genericpower2= new Poder("trampa magica", 9, 0, -5, 3, "Le provoca un daño de 5❤️ a su oponente si pasa por la trampa");
+         public static Poder genericpower3= new Poder("polvo de hadas", 10, -3, 0, -3, "A cambio de un 3❤️ recupera 3 de mana🪄");
 
 
 
         static PersonajesData()
         {
-           Poder genericpower1= new Poder("Leche Mu-Mu", 8, 1, 0, 3, "Puede curar 1❤️");
-           Poder genericpower2= new Poder("trampa magica", 9, 0, -5, 3, "Le provoca un daño de 5❤️ a su oponente si pasa por la trampa");
-           Poder genericpower3= new Poder("polvo de hadas", 10, -3, 0, -3, "A cambio de un 3❤️ recupera 3 de mana🪄");
+           
             List<Poder> podereshumano = new List<Poder>
             {
                 new Poder("intercambio",1, -1, -2, 3, "Puede quitarse 1❤️ para hacerle a su enemigo un daño de 2❤️"),
@@ -88,9 +90,17 @@ namespace Personajes
         {
             foreach (var pers in personajes)
             {
-                Console.WriteLine($"{pers.Item1}");
-                pers.Item2.DisplayCharacterInfo();
+                Console.WriteLine($"{pers.Item1}.{pers.Item2.Name}{pers.Item2.Emojiof}");
+                
             }
+        }
+        public static void ReadPersonajesInfo()
+        {
+          foreach (var pers in personajes)
+            {
+                Console.WriteLine($"{pers.Item1}.{pers.Item2.Name}{pers.Item2.Emojiof}");
+                pers.Item2.DisplayCharacterInfoo();
+            }  
         }
     }
 
@@ -172,6 +182,11 @@ namespace Personajes
                 poder.DisplayPoderInfo();
             }
         }
+        public void DisplayCharacterInfoo()
+        {
+            Console.WriteLine($"{Emojiof}.Nombre: {Name}, Vida: {Life}❤️, Poderes:");
+            Poderes[0].DisplayPoderInfo();
+        }
     }
 
     public class Poder(string nombre, int poderid, int selflifeAlteration, int othersLifeALteration, int costomana, string description)
@@ -189,6 +204,7 @@ namespace Personajes
         public static bool sirenacanto;
         public void DisplayPoderInfo()
         {
+            Console.WriteLine($"Poder: {Nombre}");
             Console.WriteLine($"Costo de mana:{Costomana}");
             Console.WriteLine(Description);
         }

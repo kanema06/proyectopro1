@@ -147,7 +147,7 @@ namespace MyMaze // Define el espacio de nombres MyMaze
             {
                 for(int j=0; j<Dimension; j++)
                 {
-                    int posibilidad=rand.Next(1, Dimension);
+                    int posibilidad=rand.Next(1, Dimension/2);
                     if (posibilidad==1){
                         Maze[i, j]=Emojis[rand.Next(Emojis.Count())];
                         if(SquareEmojis.Contains(Maze[i, j]))

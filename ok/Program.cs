@@ -6,17 +6,17 @@ class Game
 {
 
     #region variables y metodos
+    static bool finish=false;
     public static void DisplayCharacterStats(Character personaje)
     {
         Console.WriteLine($"vida:{personaje.Life}❤️        mana:{personaje.Mana}🪄");
     }
-     public static void UsePoder(int numhab, Character pers1,  Character pers2, bool mov, string[,] milaberinto, int dimension, int x, int y,string previoousemoji1, string previoousemoji2, int x2, int y2, string namepers1, string namepers2)
+     public static void UsePoder(int numhab, Character pers1,  Character pers2, bool mov, string[,] milaberinto, int dimension,ref int x,ref int y,string previoousemoji1, string previoousemoji2,ref int x2,ref int y2, string namepers1, string namepers2)
         {
             pers1.Mana-=pers1.Poderes[numhab-1].Costomana;
-            int angeldamage=0;
             Console.WriteLine($"Acabas de usar {pers1.Poderes[numhab-1].Nombre}");
             pers1.Poderes[numhab-1].DisplayPoderInfo();
-            if (pers1.Poderes[numhab-1].PoderID==1 ||  pers1.Poderes[numhab-1].PoderID==5 ||  pers1.Poderes[numhab-1].PoderID==7 ||  pers1.Poderes[numhab-1].PoderID==8 ||  pers1.Poderes[numhab-1].PoderID==10)
+            if (pers1.Poderes[numhab-1].PoderID==1 || pers1.Poderes[numhab-1].PoderID==3 || pers1.Poderes[numhab-1].PoderID==5 ||  pers1.Poderes[numhab-1].PoderID==7 ||  pers1.Poderes[numhab-1].PoderID==8 ||  pers1.Poderes[numhab-1].PoderID==10)
             {
             if (Poder.escamasdedragon==true && pers2.Name=="dragon")
             {
@@ -30,6 +30,7 @@ class Game
              if(pers2.Life<=0)
              {
                 milaberinto[x2,y2] = previoousemoji2;
+                Console.WriteLine(previoousemoji2);
                 x2=pers2.Start.Item1;
                 y2=pers2.Start.Item2;
                 pers2.ClearStats();
@@ -57,7 +58,7 @@ class Game
                 mov=true;
                 if(Poder.angelmuerte==true && pers1.Emojiof=="😇")
                         {
-                            pers2.Life-=angeldamage;
+                            pers2.Life-=4;
                             Console.WriteLine("Con tu muerte se ha activado la habilidad especial ''suerte de morir''");
                             Console.WriteLine("Tu oponente pierde 3❤️");
                             Console.ReadKey();
@@ -107,47 +108,133 @@ class Game
         #region texto
         ObstacleDictionaries obstacleDictionaries = new();
         
-        Console.WriteLine("Bienvenidos al Laberinto Mágico");
+        string s=@" 
+        
+██████╗ ██╗███████╗███╗   ██╗██╗   ██╗███████╗███╗   ██╗██╗██████╗  ██████╗ ███████╗         
+██╔══██╗██║██╔════╝████╗  ██║██║   ██║██╔════╝████╗  ██║██║██╔══██╗██╔═══██╗██╔════╝         
+██████╔╝██║█████╗  ██╔██╗ ██║██║   ██║█████╗  ██╔██╗ ██║██║██║  ██║██║   ██║███████╗         
+██╔══██╗██║██╔══╝  ██║╚██╗██║╚██╗ ██╔╝██╔══╝  ██║╚██╗██║██║██║  ██║██║   ██║╚════██║         
+██████╔╝██║███████╗██║ ╚████║ ╚████╔╝ ███████╗██║ ╚████║██║██████╔╝╚██████╔╝███████║██╗██╗██╗
+╚═════╝ ╚═╝╚══════╝╚═╝  ╚═══╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝╚═╝╚═════╝  ╚═════╝ ╚══════╝╚═╝╚═╝╚═╝
+";
+        Console.Clear();
+        Console.Write(s);
         Console.WriteLine("Presione cualquier tecla para continuar");
         Console.ReadKey();
         Console.Clear();
-        Console.WriteLine("¿Desean jugar?");
+        Console.WriteLine("    ¿Desean jugar?");
         Console.WriteLine("1. Sí             2. No");
         string? stringopcion=Console.ReadLine();
-        int? opcion = int.Parse(stringopcion);
+         int? opcion;
         Console.Clear();
+        while(String.IsNullOrEmpty(stringopcion) || (stringopcion!="1" && stringopcion!="2"))
+        {
+            Console.WriteLine("    ¿Desean jugar?");
+            Console.WriteLine("1. Sí             2. No");
+            Console.WriteLine("opcion no valida, trata de nuevo");
+            stringopcion=Console.ReadLine();
+            Console.Clear();
+        }
+         opcion = int.Parse(stringopcion);
         if (opcion == 1)
         {
             Console.WriteLine("El laberinto mágico es un juego diseñado para dos personas. Por ahora, díganme sus nombres...");
             Console.WriteLine("Jugador 1, introduzca su nombre:");
             string? player1 = Console.ReadLine();
+            while(String.IsNullOrEmpty(player1))
+            {
+                Console.WriteLine("El Nombre introducido no es valido, intente de nuevo");
+                Console.WriteLine("Jugador 1, introduzca su nombre:");
+                player1 = Console.ReadLine();
+            }
             Console.Clear();
             Console.WriteLine("Jugador 2, introduzca su nombre:");
             string? player2 = Console.ReadLine();
+            while(String.IsNullOrEmpty(player2))
+            {
+                Console.WriteLine("El Nombre introducido no es valido, intente de nuevo");
+                Console.WriteLine("Jugador 2, introduzca su nombre:");
+                player2 = Console.ReadLine();
+            }
             Console.Clear();
             Console.WriteLine($"Bienvenidos a la aventura, {player1} y {player2}");
             Console.WriteLine("Presione cualquier tecla para continuar");
             Console.ReadKey();
             Console.Clear();
             Console.WriteLine("El objetivo del juego es llegar hasta la meta antes que su oponente. Por supuesto, encontrarán varios obstáculos en su aventura.");
-            Console.WriteLine("Para jugar, pueden escoger entre varios personajes... ¿Quisieran ver la información de los personajes?");
-            Console.WriteLine("1. Sí             2. No");
-            int opcion2 = int.Parse(Console.ReadLine());
-            if (opcion2 == 1)
+            Console.WriteLine("Para jugar, pueden escoger entre varios personajes:");
+            PersonajesData.ReadPersonajes();
+            Console.WriteLine("Presiona A para elegir personajes");
+            Console.WriteLine("Presiona S para conocer las habilidades de los personajes");
+            ConsoleKey opcion2 = Console.ReadKey().Key;
+            while(opcion2!=ConsoleKey.A)
+           {
+            if (opcion2!=ConsoleKey.S)
             {
-                PersonajesData.ReadPersonajes();
+            Console.Clear();
+            Console.WriteLine("Presiona A para elegir personajes");
+            Console.WriteLine("Presiona S para conocer las habilidades de los personajes");
+            Console.WriteLine("opcion no valida intente de nuevo");
+            opcion2=Console.ReadKey().Key;
+
             }
-            Console.ReadKey();
+            if (opcion2 == ConsoleKey.S)
+            {
+                Console.Clear();
+                Console.WriteLine("Los personajes tienen tres habilidades comunes y una habilidad unica");
+                Console.WriteLine("Las habilidades comunes son:");
+                PersonajesData.genericpower1.DisplayPoderInfo();
+                PersonajesData.genericpower2.DisplayPoderInfo();
+                PersonajesData.genericpower3.DisplayPoderInfo();
+                Console.WriteLine("Presiona cualquier tecla para continuar");
+                Console.ReadKey();
+                Console.Clear();
+                PersonajesData.ReadPersonajesInfo();
+                Console.WriteLine("Presiona cualquier tecla para salir");
+                Console.ReadKey();
+                Console.Clear();
+                Console.WriteLine("Presiona A para elegir personajes");
+                Console.WriteLine("Presiona S para conocer las habilidades unicas de los personajes");
+                opcion2=Console.ReadKey().Key;
+            }
+           }
+            Console.Clear();
             Console.WriteLine("Ahora que conocen los personajes, pueden escoger con cuál desean jugar.");
+            PersonajesData.ReadPersonajes();
             Console.WriteLine($"{player1}, seleccione un personaje introduciendo su número:");
-            int player1Personaje = int.Parse(Console.ReadLine());
-            Character player1character = PersonajesData.personajes[player1Personaje - 1].Item2;
+
+            string? player1Personajestring = Console.ReadLine();
+            Console.Clear();
+            while(String.IsNullOrEmpty(player1Personajestring) || (player1Personajestring!="1" && player1Personajestring!="2" && player1Personajestring!="3" && player1Personajestring!="4" && player1Personajestring!="5" && player1Personajestring!="6" && player1Personajestring!="7"))
+        {
+             PersonajesData.ReadPersonajes();
+            Console.WriteLine($"{player1}, seleccione un personaje introduciendo su número:");
+            player1Personajestring=Console.ReadLine();
+            Console.Clear();
+        }
+            Character player1character = PersonajesData.personajes[int.Parse(player1Personajestring)-1].Item2;
             player1character.Start=(0,0);
+            PersonajesData.ReadPersonajes();
             Console.WriteLine($"{player2}, seleccione un personaje introduciendo su número:");
-            int player2Personaje = int.Parse(Console.ReadLine());
-            Character player2character = PersonajesData.personajes[player2Personaje - 1].Item2;
+            string? player2Personajestring = Console.ReadLine();
+            Console.Clear();
+            while(String.IsNullOrEmpty(player2Personajestring) || (player2Personajestring!="1" && player2Personajestring!="2" && player2Personajestring!="3" && player2Personajestring!="4" && player2Personajestring!="5" && player2Personajestring!="6" && player2Personajestring!="7"))
+        {
+            PersonajesData.ReadPersonajes();
+            Console.WriteLine($"{player2}, seleccione un personaje introduciendo su número:");
+            player2Personajestring=Console.ReadLine();
+            Console.Clear();
+        }
+            Character player2character = PersonajesData.personajes[int.Parse(player2Personajestring)-1].Item2;
             Console.WriteLine("Perfecto, ¿de qué dimensión desean que sea el laberinto?");
-            dimension = int.Parse(Console.ReadLine());
+            Console.WriteLine("el menor tamaño disponible es 15 y el mayor (recomendado) es 100");
+            string? dimensionstring = Console.ReadLine();
+            while(String.IsNullOrEmpty(dimensionstring) || !int.TryParse(dimensionstring, out int dimension) || int.Parse(dimensionstring)<15)
+            {
+                Console.WriteLine("La dimension introducida no es valida, por favor intente con otro valor");
+                dimensionstring=Console.ReadLine();
+            }
+            dimension=int.Parse(dimensionstring);
             player2character.Start=(dimension-1, dimension-1);
             initialcoordspl2fil = dimension-1;
             initialcoordspl2col = dimension-1;
@@ -162,10 +249,25 @@ class Game
             Console.Clear();
             Console.WriteLine("Decidamos quién empieza jugando...");
             Console.WriteLine($"{player1}, presiona 1 para cara o 2 para cruz:");
-            int player1opcioncaraocruz = int.Parse(Console.ReadLine());
+            
+            string? player1opcioncaraocruzstring= Console.ReadLine();
+            while(String.IsNullOrEmpty(player1opcioncaraocruzstring) || (player1opcioncaraocruzstring!="1" && player1opcioncaraocruzstring!="2"))
+            {
+                Console.Clear();
+                Console.WriteLine("Decidamos quién empieza jugando...");
+                Console.WriteLine($"{player1}, presiona 1 para cara o 2 para cruz:");
+                Console.WriteLine("opcion no valida, intente de nuevo");
+                player1opcioncaraocruzstring= Console.ReadLine();
+            }
+            int player1opcioncaraocruz = int.Parse(player1opcioncaraocruzstring);
             int player2opcioncaraocruz = player1opcioncaraocruz == 1 ? 2 : 1;
             Console.WriteLine($"{player2}, eso te deja con {(player2opcioncaraocruz == 1 ? "cara" : "cruz")}");
-            Console.WriteLine("Estamos lanzando la moneda...");
+            Console.WriteLine("Presionen cualquier tecla para lanzar la moneda...");
+            Console.ReadKey();
+            Console.Clear();
+            Console.WriteLine("Estamos lanzando la moneda... presiona cualquier tecla para parar");
+            Console.ReadKey();
+            Console.Clear();
             Console.WriteLine("La moneda ha caído...");
             Random random2 = new Random();
             int seleccioncaraocruz = random2.Next(1, 3);
@@ -175,6 +277,8 @@ class Game
                 Console.WriteLine($"{player1} empieza jugando");
                 inicio = 1;
                 Console.WriteLine($"{player1}, comienza tu turno");
+                Console.WriteLine("Presiona cualquier tecla para comenzar el juego");
+                Console.ReadKey();
             }
             else
             {
@@ -182,6 +286,8 @@ class Game
                 Console.WriteLine($"{player2} empieza jugando");
                 inicio = 2;
                 Console.WriteLine($"{player2}, comienza tu turno");
+                Console.WriteLine("Presiona cualquier tecla para comenzar el juego");
+                Console.ReadKey();
             }
             #endregion
 
@@ -201,18 +307,19 @@ class Game
                                             Console.Clear();
                                             Console.WriteLine("Oh no, te has quedado sin vida, vamos a regresarte al inicio, suerte!!!");
                                             Console.ReadKey();
-                                            Console.Clear();
-                                            inicio++;
-                                            Console.WriteLine($"{player2}, comienza tu turno");
-                                            Console.ReadKey();
                                             if(Poder.angelmuerte==true && player1character.Emojiof=="😇")
                                                  {
+                                                   Poder.angelmuerte=false;
                                                    player2character.Life-=3;
                                                    Console.WriteLine("Con tu muerte se ha activado la habilidad especial ''suerte de morir''");
                                                    Console.WriteLine("Tu oponente pierde 3❤️");
                                                    Console.ReadKey();
                                                  }
-                                            break;
+                                            Console.Clear();
+                                            inicio++;
+                                            Console.WriteLine($"{player2}, comienza tu turno");
+                                            Console.ReadKey();
+                                            
                                         }
 
                     else
@@ -249,11 +356,28 @@ class Game
                                 n++;
                             }
                             Console.WriteLine("Seleccione el numero de habilidad que desea usar:");
-                            int habilidadnumber = int.Parse(Console.ReadLine());
+                            Console.WriteLine("Seleccione 0 para volver atras");
+                            string? habilidadnumberstring =Console.ReadLine();
+                            while(string.IsNullOrEmpty(habilidadnumberstring) || !int.TryParse(habilidadnumberstring, out int habilidadnumberint) || habilidadnumberint<0|| habilidadnumberint>4)
+                            {
+                                 Console.Clear();
+                                 int k = 1;
+                                 foreach (var poder in player1character.Poderes)
+                                  {
+                                 Console.WriteLine($"{k}- {poder.Nombre}");
+                                  poder.DisplayPoderInfo();
+                                  k++;
+                                  }
+                                Console.WriteLine("Seleccione el numero de habilidad que desea usar:");
+                                Console.WriteLine("Seleccione 0 para volver atras");
+                                Console.WriteLine("opcion no valida, intente de nuevo");
+                                habilidadnumberstring= Console.ReadLine();
+                            }
+                            int habilidadnumber = int.Parse(habilidadnumberstring);
+                            if(habilidadnumber!=0){
                             if (player1character.Mana-player1character.Poderes[habilidadnumber - 1].Costomana>=0)
                             {
-                        
-                            UsePoder(habilidadnumber, player1character, player2character, player2mov, mazeGen.Maze, dimension, initialcoordspl1fil, initialcoordspl1col,previousemojich1, previousemojich2, initialcoordspl2fil, initialcoordspl2col, player1, player2);
+                            UsePoder(habilidadnumber, player1character, player2character, player2mov, mazeGen.Maze, dimension,ref initialcoordspl1fil,ref initialcoordspl1col,previousemojich1, previousemojich2,ref initialcoordspl2fil,ref initialcoordspl2col, player1, player2);
                             }
                             else
                             {
@@ -261,8 +385,8 @@ class Game
                             }
                             opcion3 = Console.ReadKey();
 
+                            }
                         }
-
                         if (opcion3.Key == ConsoleKey.X)
                             if (!player1mov)
                             {
@@ -293,17 +417,18 @@ class Game
                                             Console.Clear();
                                             Console.WriteLine("Oh no, te has quedado sin vida, vamos a regresarte al inicio, suerte!!!");
                                             Console.ReadKey();
-                                            Console.Clear();
-                                            inicio++;
-                                            Console.WriteLine($"{player2}, comienza tu turno");
-                                            Console.ReadKey();
                                             if(Poder.angelmuerte==true && player1character.Emojiof=="😇")
                                                  {
                                                    player2character.Life-=3;
+                                                   Poder.angelmuerte=false;
                                                    Console.WriteLine("Con tu muerte se ha activado la habilidad especial ''suerte de morir''");
                                                    Console.WriteLine("Tu oponente pierde 3❤️");
                                                    Console.ReadKey();
                                                  }
+                                            Console.Clear();
+                                            inicio++;
+                                            Console.WriteLine($"{player2}, comienza tu turno");
+                                            Console.ReadKey();
                                             break;
                                         }
                                         var key = Console.ReadKey().Key;
@@ -399,7 +524,9 @@ class Game
                             }
                         if (opcion3.Key == ConsoleKey.E)
                         {
+                            if(player1character.Mana<5){
                             player1character.Mana++;
+                            }
                             inicio++;
                             Console.Clear();
                             Console.WriteLine($"{player2}, comienza tu turno");
@@ -425,18 +552,20 @@ class Game
                                             mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col] = player2character.Emojiof;
                                             Console.Clear();
                                             Console.WriteLine("Oh no, te has quedado sin vida, vamos a regresarte al inicio, suerte!!!");
-                                            inicio--;
-                                            Console.ReadKey();
-                                            Console.WriteLine($"{player1}, comienza tu turno");
                                             Console.ReadKey();
                                             if(Poder.angelmuerte==true && player2character.Emojiof=="😇")
                                             {
-                                            player1character.Life-=3;
+                                             Poder.angelmuerte=false;
+                                             player1character.Life-=3;
                                              Console.WriteLine("Con tu muerte se ha activado la habilidad especial ''suerte de morir''");
                                              Console.WriteLine("Tu oponente pierde 3❤️");
                                              Console.ReadKey();
                                              }
-                                            break;
+                                            inicio--;
+                                            Console.WriteLine($"{player1}, comienza tu turno");
+                                            Console.ReadKey();
+                                            
+                                           
                                         }
                     else
                     {
@@ -472,17 +601,36 @@ class Game
                                 n++;
                             }
                             Console.WriteLine("Seleccione el numero de habilidad que desea usar:");
-                            int habilidadnumber = int.Parse(Console.ReadLine());
-                            if (player2character.Mana - player2character.Poderes[habilidadnumber - 1].Costomana>=0)
+                            Console.WriteLine("Seleccione 0 para volver atras");
+                            string? habilidadnumberstring =Console.ReadLine();
+                            while(string.IsNullOrEmpty(habilidadnumberstring) || !int.TryParse(habilidadnumberstring, out int habilidadnumberint) || habilidadnumberint<0|| habilidadnumberint>4)
                             {
-                                
-                                UsePoder(habilidadnumber, player2character, player1character, player1mov, mazeGen.Maze, dimension, initialcoordspl2fil, initialcoordspl2col,previousemojich2, previousemojich1, initialcoordspl1fil, initialcoordspl1col, player2, player1);
+                                 Console.Clear();
+                                 int k = 1;
+                                 foreach (var poder in player2character.Poderes)
+                                  {
+                                  Console.WriteLine($"{k}- {poder.Nombre}");
+                                  poder.DisplayPoderInfo();
+                                  k++;
+                                  }
+                                Console.WriteLine("Seleccione el numero de habilidad que desea usar:");
+                                Console.WriteLine("Seleccione 0 para volver atras");
+                                Console.WriteLine("opcion no valida, intente de nuevo");
+                                habilidadnumberstring= Console.ReadLine();
+                            }
+                            int habilidadnumber = int.Parse(habilidadnumberstring);
+                            if(habilidadnumber!=0){
+                            if (player2character.Mana-player2character.Poderes[habilidadnumber - 1].Costomana>=0)
+                            {
+                            UsePoder(habilidadnumber, player2character, player1character, player1mov, mazeGen.Maze, dimension,ref initialcoordspl2fil,ref initialcoordspl2col,previousemojich2, previousemojich1,ref initialcoordspl1fil,ref initialcoordspl1col, player2, player1);
                             }
                             else
                             {
                                 Console.WriteLine("No tienes suficiente mana para utilizar este poder");
                             }
                             opcion3 = Console.ReadKey();
+
+                            }
 
                         }
 
@@ -515,9 +663,6 @@ class Game
                                             mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col] = player2character.Emojiof;
                                             Console.Clear();
                                             Console.WriteLine("Oh no, te has quedado sin vida, vamos a regresarte al inicio, suerte!!!");
-                                            inicio--;
-                                            Console.ReadKey();
-                                            Console.WriteLine($"{player1}, comienza tu turno");
                                             Console.ReadKey();
                                             if(Poder.angelmuerte==true && player2character.Emojiof=="😇")
                                             {
@@ -526,6 +671,10 @@ class Game
                                              Console.WriteLine("Tu oponente pierde 3❤️");
                                              Console.ReadKey();
                                              }
+                                            inicio--;
+                                            Console.WriteLine($"{player1}, comienza tu turno");
+                                            Console.ReadKey();
+                                            
                                             break;
                                         }
                                         var key = Console.ReadKey().Key;
@@ -621,7 +770,9 @@ class Game
                             }
                         if (opcion3.Key == ConsoleKey.E)
                         {
+                            if(player2character.Mana<5){
                             player2character.Mana++;
+                            }
                             inicio--;
                             Console.Clear();
                             Console.WriteLine($"{player1}, comienza tu turno");
@@ -635,11 +786,16 @@ class Game
                 
             #endregion
             Console.WriteLine($"¡Felicidades, {winner}! Has ganado la partida.");
+            finish=true;
         }
-        else
+        if(opcion==2 ||finish)
         {
             Console.WriteLine("¡Hasta la próxima!");
+            Console.WriteLine("Presione cualquier tecla para salir...");
+            Console.ReadKey();
+            Environment.Exit(0);
         }
+       
     }
 }
 

@@ -53,8 +53,19 @@ namespace Obstacles
                 Console.WriteLine("y como siempre, la piedra aplasta a las tijeras");
                 Console.WriteLine("Que vas a jugar?");
                 Console.WriteLine("1. papel🖐  2. piedra✊  3. tijera✌️  4. spock🖖  5. lagarto🫳");
-                int choice = int.Parse(Console.ReadLine());
-                Lifealteration = Minigame(choice);
+                Console.WriteLine("ingresa el numero de tu eleccion");
+
+                string? choice = Console.ReadLine();
+                while(string.IsNullOrEmpty(choice) || int.TryParse(choice, out int choicenumber)||  choicenumber < 1 || choicenumber > 5)
+                {
+                    Console.Clear();
+                    Console.WriteLine("opcion no valida, intente de nuevo");
+                    Console.WriteLine("Que vas a jugar?");
+                    Console.WriteLine("1. papel🖐  2. piedra✊  3. tijera✌️  4. spock🖖  5. lagarto🫳");
+                    choice=Console.ReadLine();
+
+                }
+                Lifealteration = Minigame(int.Parse(choice));
                 if (Lifealteration == 1)
                 {
                     Console.WriteLine("Has ganado!!");
