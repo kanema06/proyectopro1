@@ -1,0 +1,37 @@
+K:\PRO PROYECTO 1\proyecto final\game\bin\Debug\net8.0\game.exe
+K:\PRO PROYECTO 1\proyecto final\game\bin\Debug\net8.0\game.deps.json
+K:\PRO PROYECTO 1\proyecto final\game\bin\Debug\net8.0\game.runtimeconfig.json
+K:\PRO PROYECTO 1\proyecto final\game\bin\Debug\net8.0\game.dll
+K:\PRO PROYECTO 1\proyecto final\game\bin\Debug\net8.0\game.pdb
+K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\game.GeneratedMSBuildEditorConfig.editorconfig
+K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\game.AssemblyInfoInputs.cache
+K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\game.AssemblyInfo.cs
+K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\game.csproj.CoreCompileInputs.cache
+K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\game.dll
+K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\refint\game.dll
+K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\game.pdb
+K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\game.genruntimeconfig.cache
+K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\ref\game.dll
+K:\PRO PROYECTO 1\proyecto final 3\ok\bin\Debug\net8.0\game.exe
+K:\PRO PROYECTO 1\proyecto final 3\ok\bin\Debug\net8.0\game.deps.json
+K:\PRO PROYECTO 1\proyecto final 3\ok\bin\Debug\net8.0\game.runtimeconfig.json
+K:\PRO PROYECTO 1\proyecto final 3\ok\bin\Debug\net8.0\game.dll
+K:\PRO PROYECTO 1\proyecto final 3\ok\bin\Debug\net8.0\game.pdb
+K:\PRO PROYECTO 1\proyecto final 3\ok\obj\Debug\net8.0\game.GeneratedMSBuildEditorConfig.editorconfig
+K:\PRO PROYECTO 1\proyecto final 3\ok\obj\Debug\net8.0\game.AssemblyInfoInputs.cache
+K:\PRO PROYECTO 1\proyecto final 3\ok\obj\Debug\net8.0\game.AssemblyInfo.cs
+K:\PRO PROYECTO 1\proyecto final 3\ok\obj\Debug\net8.0\game.csproj.CoreCompileInputs.cache
+K:\PRO PROYECTO 1\proyecto final 3\ok\obj\Debug\net8.0\game.dll
+K:\PRO PROYECTO 1\proyecto final 3\ok\obj\Debug\net8.0\refint\game.dll
+K:\PRO PROYECTO 1\proyecto final 3\ok\obj\Debug\net8.0\game.pdb
+K:\PRO PROYECTO 1\proyecto final 3\ok\obj\Debug\net8.0\game.genruntimeconfig.cache
+K:\PRO PROYECTO 1\proyecto final 3\ok\obj\Debug\net8.0\ref\game.dll
+K:\PRO PROYECTO 1\proyecto final 3\ok\bin\Debug\net8.0\Spectre.Console.dll
+K:\PRO PROYECTO 1\proyecto final 3\ok\obj\Debug\net8.0\game.csproj.AssemblyReference.cache
+K:\PRO PROYECTO 1\proyecto final 3\ok\obj\Debug\net8.0\game.csproj.Up2Date
+K:\PRO PROYECTO 1\proyecto final 3\ok\bin\Debug\net8.0\NAudio.dll
+K:\PRO PROYECTO 1\proyecto final 3\ok\bin\Debug\net8.0\NAudio.Asio.dll
+K:\PRO PROYECTO 1\proyecto final 3\ok\bin\Debug\net8.0\NAudio.Core.dll
+K:\PRO PROYECTO 1\proyecto final 3\ok\bin\Debug\net8.0\NAudio.Midi.dll
+K:\PRO PROYECTO 1\proyecto final 3\ok\bin\Debug\net8.0\NAudio.Wasapi.dll
+K:\PRO PROYECTO 1\proyecto final 3\ok\bin\Debug\net8.0\NAudio.WinMM.dll
