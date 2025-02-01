@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Sdf9i36yLJk=",
+  "dgSpecHash": "p05bfvSk5zI=",
   "success": true,
-  "projectFilePath": "K:\\PRO PROYECTO 1\\proyecto final 3\\ok\\game.csproj",
+  "projectFilePath": "C:\\Users\\karen\\OneDrive\\Desktop\\para github\\maze runner\\game.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\karen\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\karen\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
