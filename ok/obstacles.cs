@@ -56,7 +56,7 @@ namespace Obstacles
                 Console.WriteLine("ingresa el numero de tu eleccion");
 
                 string? choice = Console.ReadLine();
-                while(string.IsNullOrEmpty(choice) || int.TryParse(choice, out int choicenumber)||  choicenumber < 1 || choicenumber > 5)
+                while(string.IsNullOrEmpty(choice) || !int.TryParse(choice, out int choicenumber)||  choicenumber < 1 || choicenumber > 5)
                 {
                     Console.Clear();
                     Console.WriteLine("opcion no valida, intente de nuevo");
@@ -124,16 +124,16 @@ namespace Obstacles
 
     public class ObstacleDictionaries
     {
-        public static Dictionary<int, Obstacle> RoundEmojiMeanings { get; set; }
+        public static Dictionary<int, (string,Obstacle)> RoundEmojiMeanings { get; set; }
         public static Dictionary<string, Obstacle> SquareEmojiMeanings { get; set; }
 
         public ObstacleDictionaries()
         {
-            RoundEmojiMeanings = new Dictionary<int, Obstacle>
+            RoundEmojiMeanings = new Dictionary<int, (string,Obstacle)>
             {
-                {1, new Obstacle("un lobo", -1, "🐺:que haces por aqui tan solo...") },
-                {2, new Obstacle("una bruja", 0, "🧙:hoy me siento indecisa... vamos a echarlo a piedra, papel, tijera, lagarto, spock")},
-                {3, new Obstacle("un hada", 1, "🧚:tienes que tener cuidado... dejame ayudarte un poco")}
+                {1,("🐺", new Obstacle("un lobo", -1, "🐺:que haces por aqui tan solo...")) },
+                {2,("🧙", new Obstacle("una bruja", 0, "🧙:hoy me siento indecisa... vamos a echarlo a piedra, papel, tijera, lagarto, spock"))},
+                {3,("🧚", new Obstacle("un hada", 1, "🧚:tienes que tener cuidado... dejame ayudarte un poco"))}
             };
 
             SquareEmojiMeanings = new Dictionary<string, Obstacle>

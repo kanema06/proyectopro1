@@ -12,3 +12,31 @@ K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\refint\game.dll
 K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\game.pdb
 K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\game.genruntimeconfig.cache
 K:\PRO PROYECTO 1\proyecto final\game\obj\Debug\net8.0\ref\game.dll
+C:\Users\karen\Downloads\proyectopro1-main\proyectopro1-main\ok\bin\Debug\net8.0\game.exe
+C:\Users\karen\Downloads\proyectopro1-main\proyectopro1-main\ok\bin\Debug\net8.0\game.deps.json
+C:\Users\karen\Downloads\proyectopro1-main\proyectopro1-main\ok\bin\Debug\net8.0\game.runtimeconfig.json
+C:\Users\karen\Downloads\proyectopro1-main\proyectopro1-main\ok\bin\Debug\net8.0\game.dll
+C:\Users\karen\Downloads\proyectopro1-main\proyectopro1-main\ok\bin\Debug\net8.0\game.pdb
+C:\Users\karen\Downloads\proyectopro1-main\proyectopro1-main\ok\obj\Debug\net8.0\game.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\karen\Downloads\proyectopro1-main\proyectopro1-main\ok\obj\Debug\net8.0\game.AssemblyInfoInputs.cache
+C:\Users\karen\Downloads\proyectopro1-main\proyectopro1-main\ok\obj\Debug\net8.0\game.AssemblyInfo.cs
+C:\Users\karen\Downloads\proyectopro1-main\proyectopro1-main\ok\obj\Debug\net8.0\game.csproj.CoreCompileInputs.cache
+C:\Users\karen\Downloads\proyectopro1-main\proyectopro1-main\ok\obj\Debug\net8.0\game.dll
+C:\Users\karen\Downloads\proyectopro1-main\proyectopro1-main\ok\obj\Debug\net8.0\refint\game.dll
+C:\Users\karen\Downloads\proyectopro1-main\proyectopro1-main\ok\obj\Debug\net8.0\game.pdb
+C:\Users\karen\Downloads\proyectopro1-main\proyectopro1-main\ok\obj\Debug\net8.0\game.genruntimeconfig.cache
+C:\Users\karen\Downloads\proyectopro1-main\proyectopro1-main\ok\obj\Debug\net8.0\ref\game.dll
+C:\Users\karen\OneDrive\Desktop\para github\ok\bin\Debug\net8.0\game.exe
+C:\Users\karen\OneDrive\Desktop\para github\ok\bin\Debug\net8.0\game.deps.json
+C:\Users\karen\OneDrive\Desktop\para github\ok\bin\Debug\net8.0\game.runtimeconfig.json
+C:\Users\karen\OneDrive\Desktop\para github\ok\bin\Debug\net8.0\game.dll
+C:\Users\karen\OneDrive\Desktop\para github\ok\bin\Debug\net8.0\game.pdb
+C:\Users\karen\OneDrive\Desktop\para github\ok\obj\Debug\net8.0\game.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\karen\OneDrive\Desktop\para github\ok\obj\Debug\net8.0\game.AssemblyInfoInputs.cache
+C:\Users\karen\OneDrive\Desktop\para github\ok\obj\Debug\net8.0\game.AssemblyInfo.cs
+C:\Users\karen\OneDrive\Desktop\para github\ok\obj\Debug\net8.0\game.csproj.CoreCompileInputs.cache
+C:\Users\karen\OneDrive\Desktop\para github\ok\obj\Debug\net8.0\game.dll
+C:\Users\karen\OneDrive\Desktop\para github\ok\obj\Debug\net8.0\refint\game.dll
+C:\Users\karen\OneDrive\Desktop\para github\ok\obj\Debug\net8.0\game.pdb
+C:\Users\karen\OneDrive\Desktop\para github\ok\obj\Debug\net8.0\game.genruntimeconfig.cache
+C:\Users\karen\OneDrive\Desktop\para github\ok\obj\Debug\net8.0\ref\game.dll

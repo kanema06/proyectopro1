@@ -2,29 +2,40 @@ using Personajes;
 using MyMaze;
 using Obstacles;
 using System.Collections;
+using System.Security;
 class Game
 {
 
     #region variables y metodos
+    static Random  random = new Random();
+
+    static bool music=true;
     static bool finish=false;
     public static void DisplayCharacterStats(Character personaje)
     {
         Console.WriteLine($"vida:{personaje.Life}❤️        mana:{personaje.Mana}🪄");
     }
-     public static void UsePoder(int numhab, Character pers1,  Character pers2, bool mov, string[,] milaberinto, int dimension,ref int x,ref int y,string previoousemoji1, string previoousemoji2,ref int x2,ref int y2, string namepers1, string namepers2)
+     public static void UsePoder(int numhab, Character pers1,  Character pers2, bool mov, string[,] milaberinto, int dimension,ref int x,ref int y,ref string previoousemoji1, string previoousemoji2,ref int x2,ref int y2, string namepers1, string namepers2)
         {
             pers1.Mana-=pers1.Poderes[numhab-1].Costomana;
             Console.WriteLine($"Acabas de usar {pers1.Poderes[numhab-1].Nombre}");
             pers1.Poderes[numhab-1].DisplayPoderInfo();
             if (pers1.Poderes[numhab-1].PoderID==1 || pers1.Poderes[numhab-1].PoderID==3 || pers1.Poderes[numhab-1].PoderID==5 ||  pers1.Poderes[numhab-1].PoderID==7 ||  pers1.Poderes[numhab-1].PoderID==8 ||  pers1.Poderes[numhab-1].PoderID==10)
             {
+            int n=pers1.Poderes[numhab-1].OthersLifeALteration;
+            if(pers1.Poderes[numhab-1].PoderID==7)
+            {
+                pers1.Poderes[numhab-1].OthersLifeALteration=-random.Next(0, 4);
+                Console.WriteLine($"EL daño fue de {-n}");
+            }
             if (Poder.escamasdedragon==true && pers2.Name=="dragon")
             {
-                pers2.Life+=(pers1.Poderes[numhab-1].OthersLifeALteration/2);
+                Console.WriteLine("tus escamas te han protegido del ataque de tu rival, cuidado a partir de ahora");
+                Poder.escamasdedragon=false;
             }
              else
              {
-                pers2.Life+=pers1.Poderes[numhab-1].OthersLifeALteration;
+                pers2.Life+=n;
              }
              pers1.Life+=pers1.Poderes[numhab-1].SelfLifeAlteration;
              if(pers2.Life<=0)
@@ -65,7 +76,7 @@ class Game
                         }
              }
             }
-            else if (pers1.Poderes[numhab-1].PoderID==3)
+            else if (pers1.Poderes[numhab-1].PoderID==2)
             {
                 Poder.escamasdedragon=true;
             
@@ -81,7 +92,7 @@ class Game
             }
             else if(pers1.Poderes[numhab-1].PoderID==9)
             {
-                milaberinto[x, y]="💣";
+                previoousemoji1="💣";
 
             }
         
@@ -104,8 +115,20 @@ class Game
     #endregion
     public static void Main(string[] args)
     {
+       /* #region musica
+        string audioFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "audio");
+        string[] audioFilePaths = {
+            Path.Combine(audioFolderPath, "Laura Shigihara - Crazy Dave (Intro Theme).mp3"),
+            Path.Combine(audioFolderPath, "Laura Shigihara - Choose Your Seeds (In-Game).mp3"),
+            Path.Combine(audioFolderPath,"Laura Shigihara - Grasswalk (In-Game).mp3"),
+            Path.Combine(audioFolderPath,"8-Bit Arcade - Super Mario Bros. - Level Complete.mp3")
+        };
+        BackgroundMusic backgroundMusic = new BackgroundMusic(audioFilePaths);
+        backgroundMusic.Play(0);
+        #endregion*/
 
         #region texto
+        
         ObstacleDictionaries obstacleDictionaries = new();
         
         string s=@" 
@@ -138,11 +161,29 @@ class Game
          opcion = int.Parse(stringopcion);
         if (opcion == 1)
         {
-            Console.WriteLine("El laberinto mágico es un juego diseñado para dos personas. Por ahora, díganme sus nombres...");
+            /*Console.WriteLine("Desean musica de fondo?");
+            Console.WriteLine("1. Sí             2. No");
+            string? stringopcion2 = Console.ReadLine();
+            Console.Clear();
+             while(String.IsNullOrEmpty(stringopcion2) || (stringopcion2!="1" && stringopcion2!="2"))
+            {
+            Console.WriteLine("Desean musica de fondo?");
+            Console.WriteLine("1. Sí             2. No");
+            Console.WriteLine("opcion no valida, trata de nuevo");
+            stringopcion2=Console.ReadLine();
+            Console.Clear();
+            }
+            if(int.Parse(stringopcion2)==2)
+            {
+                backgroundMusic.Stop();
+                music=false;
+            }*/
+            Console.WriteLine("Mazes & Monsters es un juego diseñado para dos personas. Por ahora, díganme sus nombres...");
             Console.WriteLine("Jugador 1, introduzca su nombre:");
             string? player1 = Console.ReadLine();
             while(String.IsNullOrEmpty(player1))
             {
+                Console.Clear();
                 Console.WriteLine("El Nombre introducido no es valido, intente de nuevo");
                 Console.WriteLine("Jugador 1, introduzca su nombre:");
                 player1 = Console.ReadLine();
@@ -152,6 +193,7 @@ class Game
             string? player2 = Console.ReadLine();
             while(String.IsNullOrEmpty(player2))
             {
+                Console.Clear();
                 Console.WriteLine("El Nombre introducido no es valido, intente de nuevo");
                 Console.WriteLine("Jugador 2, introduzca su nombre:");
                 player2 = Console.ReadLine();
@@ -161,6 +203,11 @@ class Game
             Console.WriteLine("Presione cualquier tecla para continuar");
             Console.ReadKey();
             Console.Clear();
+            /*if(music==true)
+            {
+                backgroundMusic.Stop();
+                backgroundMusic.Play(1);
+            }*/
             Console.WriteLine("El objetivo del juego es llegar hasta la meta antes que su oponente. Por supuesto, encontrarán varios obstáculos en su aventura.");
             Console.WriteLine("Para jugar, pueden escoger entre varios personajes:");
             PersonajesData.ReadPersonajes();
@@ -207,7 +254,8 @@ class Game
             Console.Clear();
             while(String.IsNullOrEmpty(player1Personajestring) || (player1Personajestring!="1" && player1Personajestring!="2" && player1Personajestring!="3" && player1Personajestring!="4" && player1Personajestring!="5" && player1Personajestring!="6" && player1Personajestring!="7"))
         {
-             PersonajesData.ReadPersonajes();
+            PersonajesData.ReadPersonajes();
+            Console.WriteLine("opcion no valida");
             Console.WriteLine($"{player1}, seleccione un personaje introduciendo su número:");
             player1Personajestring=Console.ReadLine();
             Console.Clear();
@@ -218,9 +266,10 @@ class Game
             Console.WriteLine($"{player2}, seleccione un personaje introduciendo su número:");
             string? player2Personajestring = Console.ReadLine();
             Console.Clear();
-            while(String.IsNullOrEmpty(player2Personajestring) || (player2Personajestring!="1" && player2Personajestring!="2" && player2Personajestring!="3" && player2Personajestring!="4" && player2Personajestring!="5" && player2Personajestring!="6" && player2Personajestring!="7"))
+            while(String.IsNullOrEmpty(player2Personajestring) ||player2Personajestring==player1Personajestring || (player2Personajestring!="1" && player2Personajestring!="2" && player2Personajestring!="3" && player2Personajestring!="4" && player2Personajestring!="5" && player2Personajestring!="6" && player2Personajestring!="7"))
         {
             PersonajesData.ReadPersonajes();
+            Console.WriteLine("opcion no valida");
             Console.WriteLine($"{player2}, seleccione un personaje introduciendo su número:");
             player2Personajestring=Console.ReadLine();
             Console.Clear();
@@ -244,6 +293,11 @@ class Game
             mazeGen.Maze[0, 0] = player1character.Emojiof;
             mazeGen.Maze[dimension - 1, dimension - 1] = player2character.Emojiof;
             mazeGen.DisplayMaze();
+            /*if(music==true){
+            backgroundMusic.Stop();
+            backgroundMusic.Play(2);
+            }
+            */
             Console.WriteLine("Vamos a empezar...");
             Console.ReadKey();
             Console.Clear();
@@ -377,7 +431,7 @@ class Game
                             if(habilidadnumber!=0){
                             if (player1character.Mana-player1character.Poderes[habilidadnumber - 1].Costomana>=0)
                             {
-                            UsePoder(habilidadnumber, player1character, player2character, player2mov, mazeGen.Maze, dimension,ref initialcoordspl1fil,ref initialcoordspl1col,previousemojich1, previousemojich2,ref initialcoordspl2fil,ref initialcoordspl2col, player1, player2);
+                            UsePoder(habilidadnumber, player1character, player2character, player2mov, mazeGen.Maze, dimension,ref initialcoordspl1fil,ref initialcoordspl1col,ref previousemojich1, previousemojich2,ref initialcoordspl2fil,ref initialcoordspl2col, player1, player2);
                             }
                             else
                             {
@@ -476,7 +530,13 @@ class Game
                                             Console.WriteLine("La casilla a la que desea moverse no es alcanzable, trate de nuevo");
                                             i--;
                                         }
-                                        if (previousemojich1 != "⬜" && MazeMask[initialcoordspl1fil, initialcoordspl1col] == false)
+                                        if(Personajes.PersonajesData.personajesemojis.Contains(previousemojich1))
+                                        {
+                                            Console.WriteLine("Has caido en la misma casilla que tu rival, puedes volver a moverte este turno");
+                                            player1mov=true;
+
+                                        }
+                                        else if (previousemojich1 != "⬜" && MazeMask[initialcoordspl1fil, initialcoordspl1col] == false)
                                         {
                                             MazeMask[initialcoordspl1fil, initialcoordspl1col] = true;
 
@@ -488,22 +548,23 @@ class Game
                                             }
                                             else if(previousemojich1=="💣")
                                             {
-                                             player2character.Life--;
-                                             Console.WriteLine("Oh no, tu rival habia dejado una trampa en esta casilla, pierdes 1❤️");
+                                             player1character.Life-=5;
+                                             Console.WriteLine("Oh no, tu rival habia dejado una trampa en esta casilla, pierdes 5❤️");
                                             }
                                             else if (previousemojich1 == "🔴")
                                             {
                                                 Random random4 = new Random();
                                                 int obstaculonpc = random4.Next(1, 4);
-                                                ObstacleDictionaries.RoundEmojiMeanings[obstaculonpc].DisplayNPCInfo();
-                                                player1character.Life += ObstacleDictionaries.RoundEmojiMeanings[obstaculonpc].Lifealteration;
+                                              ObstacleDictionaries.RoundEmojiMeanings[obstaculonpc].Item2.DisplayNPCInfo();
+                                                previousemojich1=ObstacleDictionaries.RoundEmojiMeanings[obstaculonpc].Item1;
+                                                player1character.Life += ObstacleDictionaries.RoundEmojiMeanings[obstaculonpc].Item2.Lifealteration;
                                             }
                                             else
                                             {
                                                 bool visitadoadyacentes = false;
                                                 foreach (var dir in MazeGen.directions)
                                                 {
-                                                    if (MazeGen.PosicionValida(initialcoordspl1fil + dir.Item1, initialcoordspl1col + dir.Item2) && MazeMask[initialcoordspl1fil + dir.Item1, initialcoordspl1col + dir.Item2] == true)
+                                                    if (MazeGen.PosicionValida(initialcoordspl1fil + dir.Item1, initialcoordspl1col + dir.Item2) && mazeGen.Maze[initialcoordspl1fil + dir.Item1, initialcoordspl1col + dir.Item2]==previousemojich1 && MazeMask[initialcoordspl1fil + dir.Item1, initialcoordspl1col + dir.Item2] == true)
                                                     {
                                                         visitadoadyacentes = true;
                                                         MazeMask[initialcoordspl1fil, initialcoordspl1col] = true;
@@ -518,6 +579,10 @@ class Game
                                             }
                                         }
 
+                                    }
+                                    if(winnerplayer1)
+                                    {
+                                        break;
                                     }
                                     opcion3 = Console.ReadKey();
                                 }
@@ -622,7 +687,7 @@ class Game
                             if(habilidadnumber!=0){
                             if (player2character.Mana-player2character.Poderes[habilidadnumber - 1].Costomana>=0)
                             {
-                            UsePoder(habilidadnumber, player2character, player1character, player1mov, mazeGen.Maze, dimension,ref initialcoordspl2fil,ref initialcoordspl2col,previousemojich2, previousemojich1,ref initialcoordspl1fil,ref initialcoordspl1col, player2, player1);
+                            UsePoder(habilidadnumber, player2character, player1character, player1mov, mazeGen.Maze, dimension,ref initialcoordspl2fil,ref initialcoordspl2col,ref previousemojich2, previousemojich1,ref initialcoordspl1fil,ref initialcoordspl1col, player2, player1);
                             }
                             else
                             {
@@ -722,8 +787,15 @@ class Game
                                             Console.WriteLine("La casilla a la que desea moverse no es alcanzable, trate de nuevo");
                                             i--;
                                         }
-                                        if (previousemojich2 != "⬜" && MazeMask[initialcoordspl2fil, initialcoordspl2col] == false)
+                                        if(Personajes.PersonajesData.personajesemojis.Contains(previousemojich2))
                                         {
+                                            Console.WriteLine("Has caido en la misma casilla que tu rival, puedes volver a moverte este turno");
+                                            player2mov=true;
+
+                                        }
+                                        else if (previousemojich2 != "⬜" && MazeMask[initialcoordspl2fil, initialcoordspl2col] == false)
+                                        {
+
                                             MazeMask[initialcoordspl2fil, initialcoordspl2col] = true;
 
                                             if (previousemojich2 == "🏁")
@@ -734,22 +806,24 @@ class Game
                                             }
                                             else if(previousemojich2=="💣")
                                             {
-                                             player2character.Life--;
-                                             Console.WriteLine("Oh no, tu rival habia dejado una trampa en esta casilla, pierdes 1❤️");
+                                             player2character.Life-=5;
+                                             Console.WriteLine("Oh no, tu rival habia dejado una trampa en esta casilla, pierdes 5❤️");
                                             }
                                             else if (previousemojich2 == "🔴")
                                             {
                                                 Random random4 = new Random();
                                                 int obstaculonpc = random4.Next(1, 4);
-                                                ObstacleDictionaries.RoundEmojiMeanings[obstaculonpc].DisplayNPCInfo();
-                                                player2character.Life += ObstacleDictionaries.RoundEmojiMeanings[obstaculonpc].Lifealteration;
+                                                 previousemojich2=ObstacleDictionaries.RoundEmojiMeanings[obstaculonpc].Item1;
+                                                ObstacleDictionaries.RoundEmojiMeanings[obstaculonpc].Item2.DisplayNPCInfo();
+
+                                                player2character.Life += ObstacleDictionaries.RoundEmojiMeanings[obstaculonpc].Item2.Lifealteration;
                                             }
                                             else
                                             {
                                                 bool visitadoadyacentes = false;
                                                 foreach (var dir in MazeGen.directions)
                                                 {
-                                                    if (MazeGen.PosicionValida(initialcoordspl2fil + dir.Item1, initialcoordspl2col + dir.Item2) && MazeMask[initialcoordspl2fil + dir.Item1, initialcoordspl2col + dir.Item2] == true)
+                                                    if ( MazeGen.PosicionValida(initialcoordspl2fil + dir.Item1, initialcoordspl2col + dir.Item2) && mazeGen.Maze[initialcoordspl2fil + dir.Item1, initialcoordspl2col + dir.Item2]==previousemojich2 && MazeMask[initialcoordspl2fil + dir.Item1, initialcoordspl2col + dir.Item2] == true)
                                                     {
                                                         visitadoadyacentes = true;
                                                         MazeMask[initialcoordspl2fil, initialcoordspl2col] = true;
@@ -764,6 +838,10 @@ class Game
                                             }
                                         }
 
+                                    }
+                                    if(winnerplayer2)
+                                    {
+                                        break;
                                     }
                                     opcion3 = Console.ReadKey();
                                 }
@@ -782,13 +860,20 @@ class Game
                     }
                     }
                 }
+
             }
                 
             #endregion
+            /*if(music==true)
+            {
+                backgroundMusic.Stop();
+                backgroundMusic.Play(3);
+            }*/
+            Console.Clear();
             Console.WriteLine($"¡Felicidades, {winner}! Has ganado la partida.");
             finish=true;
         }
-        if(opcion==2 ||finish)
+        if(opcion==2 || finish)
         {
             Console.WriteLine("¡Hasta la próxima!");
             Console.WriteLine("Presione cualquier tecla para salir...");

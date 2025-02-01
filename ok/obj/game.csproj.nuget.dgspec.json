@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "K:\\PRO PROYECTO 1\\proyecto final\\game\\game.csproj": {}
+    "C:\\Users\\karen\\OneDrive\\Desktop\\para github\\ok\\game.csproj": {}
   },
   "projects": {
-    "K:\\PRO PROYECTO 1\\proyecto final\\game\\game.csproj": {
+    "C:\\Users\\karen\\OneDrive\\Desktop\\para github\\ok\\game.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "K:\\PRO PROYECTO 1\\proyecto final\\game\\game.csproj",
+        "projectUniqueName": "C:\\Users\\karen\\OneDrive\\Desktop\\para github\\ok\\game.csproj",
         "projectName": "game",
-        "projectPath": "K:\\PRO PROYECTO 1\\proyecto final\\game\\game.csproj",
+        "projectPath": "C:\\Users\\karen\\OneDrive\\Desktop\\para github\\ok\\game.csproj",
         "packagesPath": "C:\\Users\\karen\\.nuget\\packages\\",
-        "outputPath": "K:\\PRO PROYECTO 1\\proyecto final\\game\\obj\\",
+        "outputPath": "C:\\Users\\karen\\OneDrive\\Desktop\\para github\\ok\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\karen\\AppData\\Roaming\\NuGet\\NuGet.Config"
