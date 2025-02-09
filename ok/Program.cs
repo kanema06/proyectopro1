@@ -15,7 +15,7 @@ class Game
     {
         Console.WriteLine($"vida:{personaje.Life}❤️        mana:{personaje.Mana}🪄");
     }
-     public static void UsePoder(int numhab, Character pers1,  Character pers2, bool mov, string[,] milaberinto, int dimension,ref int x,ref int y,ref string previoousemoji1, string previoousemoji2,ref int x2,ref int y2, string namepers1, string namepers2)
+     public static void UsePoder(int numhab, Character pers1,  Character pers2, bool mov, string[,] milaberinto, int dimension,ref int x,ref int y,ref string previoousemoji1,ref string previoousemoji2,ref int x2,ref int y2, string namepers1, string namepers2)
         {
             pers1.Mana-=pers1.Poderes[numhab-1].Costomana;
             Console.WriteLine($"Acabas de usar {pers1.Poderes[numhab-1].Nombre}");
@@ -41,7 +41,7 @@ class Game
              if(pers2.Life<=0)
              {
                 milaberinto[x2,y2] = previoousemoji2;
-                Console.WriteLine(previoousemoji2);
+                previoousemoji2="⬜";
                 x2=pers2.Start.Item1;
                 y2=pers2.Start.Item2;
                 pers2.ClearStats();
@@ -60,6 +60,7 @@ class Game
              if (pers1.Life<=0)
              {
                 milaberinto[x,y] = previoousemoji1;
+                previoousemoji1="⬜";
                 x=pers1.Start.Item1;
                 y=pers1.Start.Item2;
                 pers1.ClearStats();
@@ -102,11 +103,11 @@ class Game
     public static int inicio;
     public static string previousemojich1 = "⬜";
     public static string previousemojich2 = "⬜";
-    public static int initialcoordspl1fil = 0;
-    public static int initialcoordspl1col = 0;
+    public static int initialcoordspl1fil = 1;
+    public static int initialcoordspl1col = 1;
     public static int dimension;
-    public static int initialcoordspl2fil;
-    public static int initialcoordspl2col;
+    public static int initialcoordspl2fil=1;
+    public static int initialcoordspl2col=1;
     public static string winner = "";
     public static bool winnerplayer1 = false;
     public static bool winnerplayer2 = false;
@@ -284,14 +285,13 @@ class Game
                 dimensionstring=Console.ReadLine();
             }
             dimension=int.Parse(dimensionstring);
-            player2character.Start=(dimension-1, dimension-1);
-            initialcoordspl2fil = dimension-1;
-            initialcoordspl2col = dimension-1;
+                 if (dimension%2==0)
+                {
+                dimension++;
+                }
+
             MazeGen mazeGen = new MazeGen(dimension);
-            mazeGen.Maze[dimension / 2, dimension / 2] = "🏁";
             bool[,] MazeMask = new bool[dimension, dimension];
-            mazeGen.Maze[0, 0] = player1character.Emojiof;
-            mazeGen.Maze[dimension - 1, dimension - 1] = player2character.Emojiof;
             mazeGen.DisplayMaze();
             /*if(music==true){
             backgroundMusic.Stop();
@@ -330,6 +330,7 @@ class Game
                 Console.WriteLine("La moneda ha salido cara");
                 Console.WriteLine($"{player1} empieza jugando");
                 inicio = 1;
+                mazeGen.Maze[1,1]=player1character.Emojiof;
                 Console.WriteLine($"{player1}, comienza tu turno");
                 Console.WriteLine("Presiona cualquier tecla para comenzar el juego");
                 Console.ReadKey();
@@ -339,6 +340,7 @@ class Game
                 Console.WriteLine($"La moneda ha salido {caraocruz[seleccioncaraocruz - 1]}");
                 Console.WriteLine($"{player2} empieza jugando");
                 inicio = 2;
+                mazeGen.Maze[1,1]=player2character.Emojiof;
                 Console.WriteLine($"{player2}, comienza tu turno");
                 Console.WriteLine("Presiona cualquier tecla para comenzar el juego");
                 Console.ReadKey();
@@ -350,12 +352,16 @@ class Game
                 #region movimiento jugador 1
                 if (inicio == 1)
                 {
+                    if(initialcoordspl1fil==1 &&  initialcoordspl1col==1)
+                   {
+                    mazeGen.Maze[1,1]=player1character.Emojiof;
+                   }
                     if (player1character.Life <= 0)
                                         {
                                             mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = previousemojich1;
                                             previousemojich1="⬜";
-                                            initialcoordspl1fil = 0;
-                                            initialcoordspl1col = 0;
+                                            initialcoordspl1fil = 1;
+                                            initialcoordspl1col = 1;
                                             player1character.ClearStats();
                                             mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = player1character.Emojiof;
                                             Console.Clear();
@@ -431,7 +437,7 @@ class Game
                             if(habilidadnumber!=0){
                             if (player1character.Mana-player1character.Poderes[habilidadnumber - 1].Costomana>=0)
                             {
-                            UsePoder(habilidadnumber, player1character, player2character, player2mov, mazeGen.Maze, dimension,ref initialcoordspl1fil,ref initialcoordspl1col,ref previousemojich1, previousemojich2,ref initialcoordspl2fil,ref initialcoordspl2col, player1, player2);
+                            UsePoder(habilidadnumber, player1character, player2character, player2mov, mazeGen.Maze, dimension,ref initialcoordspl1fil,ref initialcoordspl1col,ref previousemojich1,ref previousemojich2,ref initialcoordspl2fil,ref initialcoordspl2col, player1, player2);
                             }
                             else
                             {
@@ -464,8 +470,8 @@ class Game
                                         {
                                             mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = previousemojich1;
                                             previousemojich1="⬜";
-                                            initialcoordspl1fil = 0;
-                                            initialcoordspl1col = 0;
+                                            initialcoordspl1fil = 1;
+                                            initialcoordspl1col = 1;
                                             player1character.ClearStats();
                                             mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = player1character.Emojiof;
                                             Console.Clear();
@@ -486,7 +492,7 @@ class Game
                                             break;
                                         }
                                         var key = Console.ReadKey().Key;
-                                        if (key == ConsoleKey.W && initialcoordspl1fil - 1 >= 0 && mazeGen.Maze[initialcoordspl1fil - 1, initialcoordspl1col] != "🌳")
+                                        if ((key == ConsoleKey.W || key==ConsoleKey.UpArrow) && initialcoordspl1fil - 1 >= 1 && mazeGen.Maze[initialcoordspl1fil - 1, initialcoordspl1col] != "🌳")
                                         {
                                             Console.Clear();
                                             mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = previousemojich1;
@@ -496,7 +502,7 @@ class Game
                                             mazeGen.DisplayMaze();
 
                                         }
-                                        else if (key == ConsoleKey.S && initialcoordspl1fil + 1 < dimension && mazeGen.Maze[initialcoordspl1fil + 1, initialcoordspl1col] != "🌳")
+                                        else if ((key == ConsoleKey.S || key==ConsoleKey.DownArrow) && initialcoordspl1fil + 1 < dimension && mazeGen.Maze[initialcoordspl1fil + 1, initialcoordspl1col] != "🌳")
                                         {
                                             Console.Clear();
                                             mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = previousemojich1;
@@ -505,7 +511,7 @@ class Game
                                             initialcoordspl1fil++;
                                             mazeGen.DisplayMaze();
                                         }
-                                        else if (key == ConsoleKey.A && initialcoordspl1col - 1 >= 0 && mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col - 1] != "🌳")
+                                        else if ((key == ConsoleKey.A || key==ConsoleKey.LeftArrow) && initialcoordspl1col - 1 >= 1 && mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col - 1] != "🌳")
                                         {
                                             Console.Clear();
                                             mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = previousemojich1;
@@ -514,7 +520,7 @@ class Game
                                             initialcoordspl1col--;
                                             mazeGen.DisplayMaze();
                                         }
-                                        else if (key == ConsoleKey.D && initialcoordspl1col + 1 < dimension && mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col + 1] != "🌳")
+                                        else if ((key == ConsoleKey.D || key== ConsoleKey.RightArrow) && initialcoordspl1col + 1 < dimension && mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col + 1] != "🌳")
                                         {
                                             Console.Clear();
                                             mazeGen.Maze[initialcoordspl1fil, initialcoordspl1col] = previousemojich1;
@@ -561,21 +567,9 @@ class Game
                                             }
                                             else
                                             {
-                                                bool visitadoadyacentes = false;
-                                                foreach (var dir in MazeGen.directions)
-                                                {
-                                                    if (MazeGen.PosicionValida(initialcoordspl1fil + dir.Item1, initialcoordspl1col + dir.Item2) && mazeGen.Maze[initialcoordspl1fil + dir.Item1, initialcoordspl1col + dir.Item2]==previousemojich1 && MazeMask[initialcoordspl1fil + dir.Item1, initialcoordspl1col + dir.Item2] == true)
-                                                    {
-                                                        visitadoadyacentes = true;
-                                                        MazeMask[initialcoordspl1fil, initialcoordspl1col] = true;
-                                                        break;
-                                                    }
-                                                }
-                                                if (!visitadoadyacentes)
-                                                {
-                                                    ObstacleDictionaries.SquareEmojiMeanings[previousemojich1].DisplayPlaceInfo();
-                                                    player1character.Life += ObstacleDictionaries.SquareEmojiMeanings[previousemojich1].Lifealteration;
-                                                }
+                                               ObstacleDictionaries.SquareEmojiMeanings[previousemojich1].DisplayPlaceInfo();
+                                                player1character.Life += ObstacleDictionaries.SquareEmojiMeanings[previousemojich1].Lifealteration;
+                                                
                                             }
                                         }
 
@@ -607,12 +601,16 @@ class Game
                 #region movimiento jugador 2
                 if (inicio == 2)
                 {
+                   if(initialcoordspl2fil==1 &&  initialcoordspl2col==1)
+                   {
+                    mazeGen.Maze[1,1]=player2character.Emojiof;
+                   }
                    if (player2character.Life <= 0)
                                         {
                                             mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col] = previousemojich2;
                                             previousemojich2="⬜";
-                                            initialcoordspl2fil = dimension-1;
-                                            initialcoordspl2col = dimension-1;
+                                            initialcoordspl2fil = 1;
+                                            initialcoordspl2col = 1;
                                             player2character.ClearStats();
                                             mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col] = player2character.Emojiof;
                                             Console.Clear();
@@ -687,7 +685,7 @@ class Game
                             if(habilidadnumber!=0){
                             if (player2character.Mana-player2character.Poderes[habilidadnumber - 1].Costomana>=0)
                             {
-                            UsePoder(habilidadnumber, player2character, player1character, player1mov, mazeGen.Maze, dimension,ref initialcoordspl2fil,ref initialcoordspl2col,ref previousemojich2, previousemojich1,ref initialcoordspl1fil,ref initialcoordspl1col, player2, player1);
+                            UsePoder(habilidadnumber, player2character, player1character, player1mov, mazeGen.Maze, dimension,ref initialcoordspl2fil,ref initialcoordspl2col,ref previousemojich2,ref previousemojich1,ref initialcoordspl1fil,ref initialcoordspl1col, player2, player1);
                             }
                             else
                             {
@@ -722,8 +720,8 @@ class Game
                                         {
                                             mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col] = previousemojich2;
                                             previousemojich2="⬜";
-                                            initialcoordspl2fil = dimension-1;
-                                            initialcoordspl2col = dimension-1;
+                                            initialcoordspl2fil = 1;
+                                            initialcoordspl2col = 1;
                                             player2character.ClearStats();
                                             mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col] = player2character.Emojiof;
                                             Console.Clear();
@@ -743,7 +741,7 @@ class Game
                                             break;
                                         }
                                         var key = Console.ReadKey().Key;
-                                        if (key == ConsoleKey.W && initialcoordspl2fil - 1 >= 0 && mazeGen.Maze[initialcoordspl2fil - 1, initialcoordspl2col] != "🌳")
+                                        if ((key == ConsoleKey.W || key==ConsoleKey.UpArrow) && initialcoordspl2fil - 1 >= 1 && mazeGen.Maze[initialcoordspl2fil - 1, initialcoordspl2col] != "🌳")
                                         {
                                             Console.Clear();
                                             mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col] = previousemojich2;
@@ -753,7 +751,7 @@ class Game
                                             mazeGen.DisplayMaze();
 
                                         }
-                                        else if (key == ConsoleKey.S && initialcoordspl2fil + 1 < dimension && mazeGen.Maze[initialcoordspl2fil + 1, initialcoordspl2col] != "🌳")
+                                        else if ((key == ConsoleKey.S || key==ConsoleKey.DownArrow) && initialcoordspl2fil + 1 < dimension && mazeGen.Maze[initialcoordspl2fil + 1, initialcoordspl2col] != "🌳")
                                         {
                                             Console.Clear();
                                             mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col] = previousemojich2;
@@ -762,7 +760,7 @@ class Game
                                             initialcoordspl2fil++;
                                             mazeGen.DisplayMaze();
                                         }
-                                        else if (key == ConsoleKey.A && initialcoordspl2col - 1 >= 0 && mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col - 1] != "🌳")
+                                        else if ((key == ConsoleKey.A || key==ConsoleKey.LeftArrow) && initialcoordspl2col - 1 >= 1 && mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col - 1] != "🌳")
                                         {
                                             Console.Clear();
                                             mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col] = previousemojich2;
@@ -771,7 +769,7 @@ class Game
                                             initialcoordspl2col--;
                                             mazeGen.DisplayMaze();
                                         }
-                                        else if (key == ConsoleKey.D && initialcoordspl2col + 1 < dimension && mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col + 1] != "🌳")
+                                        else if ((key == ConsoleKey.D || key==ConsoleKey.RightArrow) && initialcoordspl2col + 1 < dimension && mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col + 1] != "🌳")
                                         {
                                             Console.Clear();
                                             mazeGen.Maze[initialcoordspl2fil, initialcoordspl2col] = previousemojich2;
@@ -820,21 +818,10 @@ class Game
                                             }
                                             else
                                             {
-                                                bool visitadoadyacentes = false;
-                                                foreach (var dir in MazeGen.directions)
-                                                {
-                                                    if ( MazeGen.PosicionValida(initialcoordspl2fil + dir.Item1, initialcoordspl2col + dir.Item2) && mazeGen.Maze[initialcoordspl2fil + dir.Item1, initialcoordspl2col + dir.Item2]==previousemojich2 && MazeMask[initialcoordspl2fil + dir.Item1, initialcoordspl2col + dir.Item2] == true)
-                                                    {
-                                                        visitadoadyacentes = true;
-                                                        MazeMask[initialcoordspl2fil, initialcoordspl2col] = true;
-                                                        break;
-                                                    }
-                                                }
-                                                if (!visitadoadyacentes)
-                                                {
+                                                
                                                     ObstacleDictionaries.SquareEmojiMeanings[previousemojich2].DisplayPlaceInfo();
                                                     player2character.Life += ObstacleDictionaries.SquareEmojiMeanings[previousemojich2].Lifealteration;
-                                                }
+                                                
                                             }
                                         }
 
