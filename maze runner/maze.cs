@@ -16,6 +16,7 @@ namespace MyMaze
             Maze = new string[dim, dim]; 
             generatemaze(); 
             place_emojis();
+            Maze[1,1]="⬜";
             Maze[dimension-2, dimension-2]="🏁";
         }
 
