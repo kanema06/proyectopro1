@@ -490,11 +490,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\karen\\OneDrive\\Desktop\\para github\\maze runner\\game.csproj",
+      "projectUniqueName": "C:\\Users\\karen\\OneDrive\\Desktop\\New folder (2)\\maze runner\\game.csproj",
       "projectName": "game",
-      "projectPath": "C:\\Users\\karen\\OneDrive\\Desktop\\para github\\maze runner\\game.csproj",
+      "projectPath": "C:\\Users\\karen\\OneDrive\\Desktop\\New folder (2)\\maze runner\\game.csproj",
       "packagesPath": "C:\\Users\\karen\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\karen\\OneDrive\\Desktop\\para github\\maze runner\\obj\\",
+      "outputPath": "C:\\Users\\karen\\OneDrive\\Desktop\\New folder (2)\\maze runner\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\karen\\AppData\\Roaming\\NuGet\\NuGet.Config"

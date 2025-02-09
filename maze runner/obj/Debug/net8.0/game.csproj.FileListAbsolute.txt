@@ -81,3 +81,26 @@ C:\Users\karen\OneDrive\Desktop\para github\maze runner\obj\Debug\net8.0\refint\
 C:\Users\karen\OneDrive\Desktop\para github\maze runner\obj\Debug\net8.0\game.pdb
 C:\Users\karen\OneDrive\Desktop\para github\maze runner\obj\Debug\net8.0\game.genruntimeconfig.cache
 C:\Users\karen\OneDrive\Desktop\para github\maze runner\obj\Debug\net8.0\ref\game.dll
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\bin\Debug\net8.0\game.exe
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\bin\Debug\net8.0\game.deps.json
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\bin\Debug\net8.0\game.runtimeconfig.json
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\bin\Debug\net8.0\game.dll
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\bin\Debug\net8.0\game.pdb
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\bin\Debug\net8.0\NAudio.dll
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\bin\Debug\net8.0\NAudio.Asio.dll
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\bin\Debug\net8.0\NAudio.Core.dll
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\bin\Debug\net8.0\NAudio.Midi.dll
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\bin\Debug\net8.0\NAudio.Wasapi.dll
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\bin\Debug\net8.0\NAudio.WinMM.dll
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\bin\Debug\net8.0\Spectre.Console.dll
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\obj\Debug\net8.0\game.csproj.AssemblyReference.cache
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\obj\Debug\net8.0\game.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\obj\Debug\net8.0\game.AssemblyInfoInputs.cache
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\obj\Debug\net8.0\game.AssemblyInfo.cs
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\obj\Debug\net8.0\game.csproj.CoreCompileInputs.cache
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\obj\Debug\net8.0\game.csproj.Up2Date
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\obj\Debug\net8.0\game.dll
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\obj\Debug\net8.0\refint\game.dll
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\obj\Debug\net8.0\game.pdb
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\obj\Debug\net8.0\game.genruntimeconfig.cache
+C:\Users\karen\OneDrive\Desktop\New folder (2)\maze runner\obj\Debug\net8.0\ref\game.dll

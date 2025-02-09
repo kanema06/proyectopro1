@@ -86,13 +86,13 @@ namespace Personajes
 
             personajes = new List<(int, Character)>();
             
-                personajes.Add((1, new Character("humano",(0,0), "🧍",5, 5, podereshumano)));
-                personajes.Add((2, new Character("dragon",(0,0),"🐉",5, 5, poderesdragon)));
-                personajes.Add((3, new Character("unicornio",(0,0),"🦄",5, 5, poderesunicornio)));
-                personajes.Add((4, new Character("demonio",(0,0),"😈",5, 5, poderesdemonio)));
-                personajes.Add((5, new Character("angel",(0,0),"😇",5, 5, poderesangel)));
-                personajes.Add((6, new Character("vampiro",(0,0),"🧛",5, 5, poderesvampiro)));
-                personajes.Add((7, new Character("sirena",(0,0),"🧜",5, 5, poderessirena)));
+                personajes.Add((1, new Character("humano",(1,1), "🧍",5, 5, podereshumano)));
+                personajes.Add((2, new Character("dragon",(1,1),"🐉",5, 5, poderesdragon)));
+                personajes.Add((3, new Character("unicornio",(1,1),"🦄",5, 5, poderesunicornio)));
+                personajes.Add((4, new Character("demonio",(1,1),"😈",5, 5, poderesdemonio)));
+                personajes.Add((5, new Character("angel",(1,1),"😇",5, 5, poderesangel)));
+                personajes.Add((6, new Character("vampiro",(1,1),"🧛",5, 5, poderesvampiro)));
+                personajes.Add((7, new Character("sirena",(1,1),"🧜",5, 5, poderessirena)));
         }
 
         public static void ReadPersonajes()
