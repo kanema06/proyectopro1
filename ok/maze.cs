@@ -17,6 +17,7 @@ namespace MyMaze
             generatemaze(); 
             place_emojis();
             Maze[dimension-2, dimension-2]="🏁";
+            Maze[1,1]="⬜";
         }
 
     public void generatemaze()
